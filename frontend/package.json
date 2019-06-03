@@ -26,8 +26,11 @@
   },
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "^7.3.4",
+    "dom": "^0.0.3",
+    "mapbox": "^1.0.0-beta10",
     "react-map-gl": "^4.1.2",
     "react-redux": "^7.0.3",
+    "react-router": "^5.0.0",
     "react-router-dom": "^5.0.0",
     "redux": "^4.0.1"
   }

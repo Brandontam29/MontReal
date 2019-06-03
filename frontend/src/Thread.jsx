@@ -26,9 +26,81 @@ class UnconnectedThread extends Component {
         console.log("generating thread")
         let body = JSON.parse(responseBody)
         console.log("THREAD DATA", body)
-        this.setState({
-          threadArray: body.threadData
+        let authorName = ""
+        let thread = []
+        let findauthor = () => {
+          let data = new FormData()
+          console.log(body.threadData.authorId)
+          data.append("authorId", body.threadData.authorId)
+          fetch("http://localhost:4000/authors", {
+            method: "POST",
+            body: data,
+            credentials: "include"
+          })
+            .then(x => {
+              return x.text()
+            })
+            .then(responseBody => {
+              console.log("finding author name")
+              let body = JSON.parse(responseBody)
+              console.log("AUTHOR", body)
+              return (authorName = body.userData.name)
+            })
+          console.log("AUTHOR NAME STRING", authorName)
+          return { ...thread, authorName }
+        }
+        thread = findauthor()
+        console.log("THREAD AFTER FIND AUTHOR", thread)
+        body.threadData.comments.map(comment => {
+          let commentorName = ""
+          let data = new FormData()
+          console.log("COMMENTOR ID", comment[0].commentor)
+          data.append("commentor", comment[0].commentor)
+          fetch("http://localhost:4000/commentor", {
+            method: "POST",
+            body: data,
+            credentials: "include"
+          })
+            .then(x => {
+              return x.text()
+            })
+            .then(responseBody => {
+              console.log("finding commentor name")
+              let body = JSON.parse(responseBody)
+              console.log("COMMENTOR", body)
+              return (commentorName = body.userData.name)
+            })
+          console.log(comment[1])
+          let firstComment = {}
+          comment[1].map(reply => {
+            let replierName = ""
+            let data = new FormData()
+            console.log("REPLIER ID", reply.commentor)
+            data.append("commentor", reply.commentor)
+            fetch("http://localhost:4000/commentor", {
+              method: "POST",
+              body: data,
+              credentials: "include"
+            })
+              .then(x => {
+                return x.text()
+              })
+              .then(responseBody => {
+                console.log("finding replier name")
+                let body = JSON.parse(responseBody)
+                console.log("REPLIER", body)
+                return (replierName = body.userData.name)
+              })
+            return { ...comment[0], commentorName }, { ...reply, replierName }
+          })
+          return comment[1]
         })
+        this.setState(
+          {
+            threadArray: thread
+          },
+          () => console.log("THREAD STATE", this.state)
+        )
       })
   }
 
@@ -162,4 +234,24 @@ export default Thread
 //       },
 //       () => console.log("THREAD STATE", this.state)
 //     )
+//   })
+
+// let { threadId } = this.props.match.params //or let threadId = this.props.match.params.treadId
+// let data = new FormData()
+// data.append("threadId", threadId)
+// fetch("http://localhost:4000/thread", {
+//   method: "POST",
+//   body: data,
+//   credentials: "include"
+// })
+//   .then(x => {
+//     return x.text()
+//   })
+//   .then(async responseBody => {
+//     console.log("generating thread")
+//     let body = JSON.parse(responseBody)
+//     console.log("THREAD DATA", body)
+//     this.setState({
+//       threadArray: body.threadData
+//     })
 //   })
