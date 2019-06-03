@@ -1,0 +1,189 @@
+let express = require("express")
+let app = express()
+let multer = require("multer")
+let upload = multer()
+let ObjectID = require("mongodb").ObjectID
+let cors = require("cors")
+let MongoClient = require("mongodb").MongoClient
+let url =
+  "mongodb+srv://btam:1426956@cluster0-0auoi.mongodb.net/test?retryWrites=true"
+
+app.use(cors({ credentials: true, origin: "http://localhost:8080" }))
+app.use("/images", express.static(__dirname + "/images"))
+
+//let generateCookieId = () => Math.floor(Math.random() * 1000000000000)
+
+let generateUserId = () => {
+  let generate_random_letter = string_length => {
+    let random_string = ""
+    let random_ascii = undefined
+    let ascii_low = 97
+    let ascii_high = 122
+    for (let i = 0; i < string_length; i++) {
+      random_ascii = Math.floor(
+        Math.random() * (ascii_high - ascii_low) + ascii_low
+      )
+      random_string = random_string + String.fromCharCode(random_ascii)
+    }
+    return random_string
+  }
+
+  let generate_random_number = string_length => {
+    let number_low = 0
+    let number_high = 9
+    let random_string = ""
+    for (let i = 0; i < string_length; i++) {
+      let new_number = Math.floor(
+        Math.random() * (number_high - number_low) + number_low
+      )
+      JSON.stringify(new_number)
+      random_string = random_string.concat(new_number)
+    }
+    return random_string
+  }
+  let generate_string_length = () => {
+    return 2 * Math.floor(Math.random() * 10 + 20)
+  }
+  let generate = string_length => {
+    return (
+      generate_random_letter(string_length / 2) +
+      generate_random_number(string_length / 2)
+    )
+  }
+  return generate(generate_string_length())
+}
+
+app.post("/login", upload.none(), function(req, res) {
+  console.log("attempt login", req.body)
+  MongoClient.connect(url, (err, db) => {
+    if (err) throw err
+    let dbi = db.db("Geo-Threads")
+    dbi
+      .collection("Users")
+      .findOne(
+        { username: req.body.username, password: req.body.password },
+        function(err, userData) {
+          db.close()
+          res.send(JSON.stringify({ status: true, userData }))
+        }
+      )
+  })
+})
+
+app.post("/signup", upload.none(), function(req, res) {
+  console.log("attempt signup", req.body)
+  MongoClient.connect(url, (err, db) => {
+    if (err) throw err
+    let dbi = db.db("Geo-Threads")
+    dbi.collection("Users").insertOne({
+      userId: generateUserId(),
+      username: req.body.username,
+      password: req.body.password,
+      name: "--insert name--",
+      bio: " Live Love Laugh",
+      description: "Hello. I am new here.",
+      pic: "/blank-profile.png"
+    })
+    res.send("signup successful")
+    console.log("signup successful")
+  })
+})
+
+app.post("/modify-profile", upload.none(), function(req, res) {
+  console.log("modify profile", req.body)
+  MongoClient.connect(url, (err, db) => {
+    if (err) throw err
+    let dbi = db.db("Geo-Threads")
+    dbi.collection("Users").updateOne(
+      { userId: req.body.userId },
+      {
+        $set: {
+          userId: req.body.userId,
+          username: req.body.username,
+          password: req.body.password,
+          name: req.body.name,
+          bio: req.body.bio,
+          description: req.body.description,
+          pic: req.body.pic
+        }
+      }
+    )
+    db.close()
+    res.send("profile updated")
+    console.log("profile updated")
+  })
+})
+
+app.post("/otheraccount", upload.none(), (req, res) => {
+  console.log(req.body._id)
+  MongoClient.connect(url, (err, db) => {
+    if (err) throw err
+    let dbi = db.db("Geo-Threads")
+    dbi
+      .collection("Users")
+      .findOne({ userId: req.body.userId }, function(err, otherAccountData) {
+        db.close()
+        res.send(JSON.stringify({ status: true, otherAccountData }))
+      })
+  })
+})
+
+app.get("/threads", (req, res) => {
+  MongoClient.connect(url, (err, db) => {
+    if (err) throw err
+    console.log(url, err)
+    let dbi = db.db("Geo-Threads")
+    dbi
+      .collection("Threads")
+      .find({})
+      .toArray((err, threads) => {
+        if (err) throw err
+        db.close()
+        res.send(JSON.stringify({ status: true, threads }))
+      })
+  })
+})
+
+app.post("/thread", upload.none(), function(req, res) {
+  console.log("finding thread", req.body)
+  MongoClient.connect(url, (err, db) => {
+    if (err) throw err
+    let dbi = db.db("Geo-Threads")
+    dbi
+      .collection("Threads")
+      .findOne({ threadId: req.body.threadId }, function(err, threadData) {
+        db.close()
+        res.send(JSON.stringify({ status: true, threadData }))
+      })
+  })
+})
+
+app.post("/commentor", upload.none(), function(req, res) {
+  console.log("finding commentor names", req.body)
+  MongoClient.connect(url, (err, db) => {
+    if (err) throw err
+    let dbi = db.db("Geo-Threads")
+    dbi
+      .collection("Users")
+      .findOne({ userId: req.body.commentor }, function(err, userData) {
+        db.close()
+        res.send(JSON.stringify({ status: true, userData }))
+      })
+  })
+})
+
+app.post("/authors", upload.none(), function(req, res) {
+  console.log("finding original posters", req.body)
+  MongoClient.connect(url, (err, db) => {
+    if (err) throw err
+    let dbi = db.db("Geo-Threads")
+    dbi
+      .collection("Users")
+      .findOne({ userId: req.body.authorId }, function(err, userData) {
+        db.close()
+        res.send(JSON.stringify({ status: true, userData }))
+      })
+  })
+})
+
+app.listen(4000, console.log("server started"))

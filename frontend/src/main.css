@@ -1,0 +1,209 @@
+body {
+  background-color: rgb(165, 175, 189);
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  color: rgb(50, 50, 50);
+}
+
+.logo {
+  height: 68px;
+  position: relative;
+}
+
+.navigation-bar {
+  background-color: rgb(21, 55, 99);
+  height: 65px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.search-icon {
+  background-color: rgb(81, 185, 168);
+  height: 30px;
+  margin: -3px;
+}
+
+.nav-bar-link-box {
+  position: static;
+}
+
+.nav-bar-links {
+  color: #fff;
+  background-color: rgb(21, 55, 99);
+  padding: 24px;
+  font-size: 16px;
+  text-align: center;
+  cursor: pointer;
+  border-left: 1px rgb(116, 116, 116) solid;
+  text-decoration: none;
+}
+
+.nav-bar-links:hover {
+  background-color: rgba(137, 184, 255, 0.301);
+}
+
+.container {
+  width: 1050px;
+  margin: auto;
+}
+.map-container {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  border: 1px rgb(0, 18, 19) solid;
+}
+
+.map {
+  text-align: center;
+  position: relative;
+}
+
+.mapboxgl-canvas {
+  position: static !important;
+  /* width: 80% !important;
+  margin: auto !important; */
+}
+
+.threadboard-container {
+  background-color: rgba(255, 251, 251, 0.637);
+  border: 1px rgb(116, 116, 116) solid;
+  position: relative;
+  margin-top: 9px;
+}
+.threadboard-sperators {
+  border-bottom: 1px rgb(116, 116, 116) solid;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.threadboard-sperators:hover {
+  background-color: rgba(147, 255, 255, 0.103);
+}
+
+.threadboard-box {
+  margin-left: 20px;
+  display: flex;
+}
+.threadboard-img-container {
+  border: 1px rgb(116, 116, 116) solid;
+  max-height: 200px;
+  max-width: 400px;
+}
+
+.threadboard-img {
+  max-height: 200px;
+  width: auto;
+  max-width: 400px;
+}
+
+.threadboard-textbox {
+  position: absolute;
+  margin-left: 350px;
+  margin-right: 35px;
+}
+.threadboard-location {
+  color: rgb(110, 126, 128);
+  font-size: 12px;
+  letter-spacing: 1.3px;
+}
+.threadboard-textbox h3 {
+  margin-top: 6px;
+  margin-bottom: 4px;
+}
+
+.author-text {
+  color: rgb(0, 10, 10);
+  text-decoration: none;
+  margin-top: 3px;
+  margin-bottom: 10px;
+}
+
+.profile-pic {
+  height: 300px;
+}
+
+.searchbar-flex {
+  display: flex;
+}
+
+.search-bar {
+  width: 500px;
+  background-color: #fafafa;
+  border-color: rgb(77, 77, 77);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  height: 28px;
+  margin-top: -3px;
+  padding-left: 10px;
+}
+
+.goBack {
+  text-align: center;
+}
+
+.login-container {
+  text-align: center;
+  font-weight: 100;
+  margin-top: 30px;
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.login-button {
+  color: rgb(255, 255, 255);
+  background-color: rgb(21, 55, 99);
+  padding: 6px;
+  font-size: 10;
+  text-align: center;
+  cursor: pointer;
+  border-left: 1px rgb(116, 116, 116) solid;
+  text-decoration: none;
+  border-radius: 4px;
+  border: none;
+}
+
+.login-button:hover {
+  padding: 8px;
+}
+
+.info-bar {
+  padding: 30px;
+}
+
+.info-box {
+  width: 200px;
+  background-color: #fafafa;
+  border-color: rgb(77, 77, 77);
+  padding: 10px 15px;
+  margin: 8px 3px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.profile-container {
+  margin-left: 30px;
+  margin-top: 30px;
+  padding: 30px;
+}
+
+.margin-bottom {
+  margin-bottom: 500px;
+  color: rgba(255, 255, 255, 0);
+}
+
+.thread-box {
+  margin-left: 50px;
+  margin-top: 50px;
+}
+
+.thread-img {
+  border: 1px rgb(116, 116, 116) solid;
+  height: 400px;
+}
+
+.info-account {
+  padding: 5px;
+}
