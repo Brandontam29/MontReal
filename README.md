@@ -15,7 +15,7 @@ Features include:
   - Comment system
   
 Technologies include:
-  Front-end: React.js, Redux, React-Map-Gl, HTML, CSS
-  Backend: Node.js, Express, MongoDB
-  Other: Git, Github, NPM
+  - Front-end: React.js, Redux, React-Map-Gl, HTML, CSS
+  - Backend: Node.js, Express, MongoDB
+  - Other: Git, Github, NPM
 
