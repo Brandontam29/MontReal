@@ -2,16 +2,15 @@ let express = require("express")
 let app = express()
 let multer = require("multer")
 let upload = multer()
+let dotenv = require("dotenv")
 let ObjectID = require("mongodb").ObjectID
 let cors = require("cors")
 let MongoClient = require("mongodb").MongoClient
-let url =
-  "mongodb+srv://btam:1426956@cluster0-0auoi.mongodb.net/test?retryWrites=true"
 
+dotenv.config()
 app.use(cors({ credentials: true, origin: "http://localhost:8080" }))
 app.use("/images", express.static(__dirname + "/images"))
-
-//let generateCookieId = () => Math.floor(Math.random() * 1000000000000)
+const url = process.env.DB_URL
 
 let generateUserId = () => {
   let generate_random_letter = string_length => {
@@ -53,6 +52,62 @@ let generateUserId = () => {
   return generate(generate_string_length())
 }
 
+let generateThreadId = () => {
+  let generate_random_letter = string_length => {
+    let random_string = ""
+    let random_ascii = undefined
+    let ascii_low = 97
+    let ascii_high = 122
+    for (let i = 0; i < string_length; i++) {
+      random_ascii = Math.floor(
+        Math.random() * (ascii_high - ascii_low) + ascii_low
+      )
+      random_string = random_string + String.fromCharCode(random_ascii)
+    }
+    return random_string
+  }
+
+  let generate_random_number = string_length => {
+    let number_low = 0
+    let number_high = 9
+    let random_string = ""
+    for (let i = 0; i < string_length; i++) {
+      let new_number = Math.floor(
+        Math.random() * (number_high - number_low) + number_low
+      )
+      JSON.stringify(new_number)
+      random_string = random_string.concat(new_number)
+    }
+    return random_string
+  }
+  let generate_string_length = () => {
+    return 2 * Math.floor(Math.random() * 30 + 50)
+  }
+  let generate = string_length => {
+    return (
+      generate_random_letter(string_length / 2) +
+      generate_random_number(string_length / 2)
+    )
+  }
+  return generate(generate_string_length())
+}
+
+app.get("/threads", (req, res) => {
+  MongoClient.connect(url, (err, db) => {
+    if (err) throw err
+    console.log(url, err)
+    let dbi = db.db("Geo-Threads")
+    dbi
+      .collection("Threads")
+      .find({})
+      .toArray((err, threads) => {
+        if (err) throw err
+        db.close()
+        res.send(JSON.stringify({ status: true, threads }))
+      })
+  })
+})
+
 app.post("/login", upload.none(), function(req, res) {
   console.log("attempt login", req.body)
   MongoClient.connect(url, (err, db) => {
@@ -80,7 +135,7 @@ app.post("/signup", upload.none(), function(req, res) {
       username: req.body.username,
       password: req.body.password,
       name: "--insert name--",
-      bio: " Live Love Laugh",
+      bio: "Live Love Laugh",
       description: "Hello. I am new here.",
       pic: "/blank-profile.png"
     })
@@ -128,22 +183,6 @@ app.post("/otheraccount", upload.none(), (req, res) => {
   })
 })
 
-app.get("/threads", (req, res) => {
-  MongoClient.connect(url, (err, db) => {
-    if (err) throw err
-    console.log(url, err)
-    let dbi = db.db("Geo-Threads")
-    dbi
-      .collection("Threads")
-      .find({})
-      .toArray((err, threads) => {
-        if (err) throw err
-        db.close()
-        res.send(JSON.stringify({ status: true, threads }))
-      })
-  })
-})
-
 app.post("/thread", upload.none(), function(req, res) {
   console.log("finding thread", req.body)
   MongoClient.connect(url, (err, db) => {
@@ -155,6 +194,24 @@ app.post("/thread", upload.none(), function(req, res) {
         db.close()
         res.send(JSON.stringify({ status: true, threadData }))
       })
+  })
+})
+
+app.post("/create-thread", upload.none(), function(req, res) {
+  console.log("posting thread", req.body)
+  MongoClient.connect(url, (err, db) => {
+    if (err) throw err
+    let dbi = db.db("Geo-Threads")
+    dbi.collection("Threads").insertOne({
+      authorId: req.body.userId,
+      threadId: generateThreadId(),
+      url: req.body.url, //need to find a way to upload an image
+      location: req.body.location,
+      title: req.body.title,
+      description: req.body.description
+    })
+    res.send("signup successful")
+    console.log("signup successful")
   })
 })
 
