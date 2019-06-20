@@ -1,11 +1,12 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
+import axios from "axios"
 
 class UnconnectedMyAccount extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      pic: this.props.userData.pic,
+      pictureName: this.props.userData.pic,
       userId: this.props.userData.userId,
       username: this.props.userData.username,
       password: this.props.userData.password,
@@ -19,6 +20,11 @@ class UnconnectedMyAccount extends Component {
     this.props.dispatch({
       type: "modify-profile"
     })
+  }
+
+  handleFileSelector = event => {
+    console.log(event.target.files[0])
+    this.setState({ pictureName: event.target.files[0] })
   }
 
   handlePasswordChange = event => {
@@ -47,7 +53,7 @@ class UnconnectedMyAccount extends Component {
     data.append("name", this.state.name)
     data.append("bio", this.state.bio)
     data.append("description", this.state.description)
-    data.append("pic", this.state.pic)
+    data.append("pic", this.state.pictureName)
     console.log("right before fetch", data)
     fetch("http://localhost:4000/modify-profile", {
       method: "POST",
@@ -72,6 +78,10 @@ class UnconnectedMyAccount extends Component {
     if (this.props.modifyProfile) {
       return (
         <form className="profile-container" onSubmit={this.handleSubmit}>
+          <div>
+            Profile Picture
+            <input type="file" onChange={this.handleFileSelector} />
+          </div>
           <div>
             Password
             <input
@@ -112,7 +122,7 @@ class UnconnectedMyAccount extends Component {
         </form>
       )
     }
-    // let url = "http://localhost:4000/images" + this.props.userData.pic
+
     return (
       <div className="profile-container">
         <img className="profile-pic" src={url} />
