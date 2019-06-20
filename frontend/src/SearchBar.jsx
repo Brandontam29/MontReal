@@ -38,7 +38,7 @@ class UnconnectedSearchBar extends Component {
             />
             <img
               className="search-icon"
-              src="http://localhost:4000/images/search-icon.png"
+              src="http://localhost:4000/images/search_icon.png"
               onClick={this.handleSubmit}
             />
           </div>

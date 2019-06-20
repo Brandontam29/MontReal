@@ -9,6 +9,7 @@ import Map from "./Map.jsx"
 import SearchBar from "./SearchBar.jsx"
 import ThreadBoard from "./ThreadBoard.jsx"
 import Thread from "./Thread.jsx"
+import CreateThread from "./CreateThread.jsx"
 import "./main.css"
 
 class UnconnectedApp extends Component {
@@ -28,6 +29,8 @@ class UnconnectedApp extends Component {
 
   renderSignup = () => <Signup />
 
+  renderCreateThread = () => <CreateThread />
+
   renderMyAccount = () => <MyAccount />
 
   render = () => {
@@ -37,7 +40,7 @@ class UnconnectedApp extends Component {
           <Link to="/">
             <img
               className="logo"
-              src="http://localhost:4000/images/MontReal.png"
+              src="http://localhost:4000/images/MontReal_dark.png"
             />
           </Link>
           <SearchBar />
@@ -56,6 +59,11 @@ class UnconnectedApp extends Component {
               </Link>
             )}
             {this.props.loggedIn && (
+              <Link className="nav-bar-links" to="/createthread">
+                Create Thread
+              </Link>
+            )}
+            {this.props.loggedIn && (
               <Link className="nav-bar-links" to="/myaccount">
                 My Account
               </Link>
@@ -66,6 +74,11 @@ class UnconnectedApp extends Component {
         <Route exact={true} path="/login" render={this.renderLogin} />
         <Route exact={true} path="/signup" render={this.renderSignup} />
         <Route exact={true} path="/thread/:threadId" component={Thread} />
+        <Route
+          exact={true}
+          path="/createthread"
+          render={this.renderCreateThread}
+        />
         <Route exact={true} path="/myaccount" render={this.renderMyAccount} />
         <Route
           exact={true}

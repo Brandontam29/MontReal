@@ -51,7 +51,7 @@ class UnconnectedSignup extends Component {
             Password:
             <input
               className="info-box"
-              type="text"
+              type="password"
               onChange={this.handlePasswordChange}
             />{" "}
           </div>

@@ -13,6 +13,9 @@ let reducer = (state, action) => {
   if (action.type === "submit-profile-modification") {
     return { ...state, modifyProfile: false, userData: action.newProfile }
   }
+  if (action.type === "thread-created") {
+    return { ...state, threadCreated: true }
+  }
   return state
 }
 
@@ -22,7 +25,8 @@ const store = createStore(
     loggedIn: false,
     searchQuery: "",
     userData: {},
-    modifyProfile: false
+    modifyProfile: false,
+    threadCreated: false
   },
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 )

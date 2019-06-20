@@ -1,25 +1,27 @@
 body {
-  background-color: rgb(165, 175, 189);
+  background-color: rgb(222, 242, 241);
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
   color: rgb(50, 50, 50);
 }
 
 .logo {
-  height: 68px;
+  object-fit: contain;
+  height: 82px;
   position: relative;
+  margin-left: 40px;
 }
 
 .navigation-bar {
-  background-color: rgb(21, 55, 99);
-  height: 65px;
+  background-color: rgb(58, 175, 169);
+  height: 80px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .search-icon {
-  background-color: rgb(81, 185, 168);
+  background-color: rgb(43, 120, 122);
   height: 30px;
   margin: -3px;
 }
@@ -29,18 +31,17 @@ body {
 }
 
 .nav-bar-links {
-  color: #fff;
-  background-color: rgb(21, 55, 99);
+  color: rgb(23, 37, 42);
   padding: 24px;
   font-size: 16px;
   text-align: center;
   cursor: pointer;
-  border-left: 1px rgb(116, 116, 116) solid;
+  border-left: 1px rgb(23, 37, 42) solid;
   text-decoration: none;
 }
 
 .nav-bar-links:hover {
-  background-color: rgba(137, 184, 255, 0.301);
+  background-color: rgba(255, 255, 255, 0.25);
 }
 
 .container {
@@ -65,7 +66,7 @@ body {
 }
 
 .threadboard-container {
-  background-color: rgba(255, 251, 251, 0.637);
+  background-color: rgb(253, 255, 255);
   border: 1px rgb(116, 116, 116) solid;
   position: relative;
   margin-top: 9px;
@@ -153,7 +154,7 @@ body {
 
 .login-button {
   color: rgb(255, 255, 255);
-  background-color: rgb(21, 55, 99);
+  background-color: rgb(43, 120, 122);
   padding: 6px;
   font-size: 10;
   text-align: center;
@@ -174,7 +175,7 @@ body {
 
 .info-box {
   width: 200px;
-  background-color: #fafafa;
+  background-color: rgb(254, 255, 255);
   border-color: rgb(77, 77, 77);
   padding: 10px 15px;
   margin: 8px 3px;

@@ -40,9 +40,7 @@ class UnconnectedLogin extends Component {
         })
       })
   }
-  goBack = () => {
-    window.history.back()
-  }
+  goNavigate = () => window.history.back()
 
   render = () => {
     if (!this.props.loggedIn) {
@@ -62,7 +60,7 @@ class UnconnectedLogin extends Component {
               Password:
               <input
                 className="info-box"
-                type="text"
+                type="password"
                 onChange={this.handlePasswordChange}
               />
             </div>
@@ -74,7 +72,7 @@ class UnconnectedLogin extends Component {
     return (
       <div className="goBack">
         <h2>You have successfully logged in!</h2>
-        <button className="login-button" onClick={this.goBack}>
+        <button className="login-button" onClick={this.goNavigate}>
           Click
         </button>{" "}
         to go back navigating!

@@ -47,10 +47,7 @@ class UnconnectedMyAccount extends Component {
     data.append("name", this.state.name)
     data.append("bio", this.state.bio)
     data.append("description", this.state.description)
-    console.log(this.props.userData.pic)
-    if (!this.state.pic) {
-      data.append("pic", this.state.pic)
-    }
+    data.append("pic", this.state.pic)
     console.log("right before fetch", data)
     fetch("http://localhost:4000/modify-profile", {
       method: "POST",
@@ -71,7 +68,7 @@ class UnconnectedMyAccount extends Component {
   render = () => {
     console.log("rendering profile")
     console.log(this.props.userData.pic)
-    //let url = "http://localhost:4000/images" + this.props.userData.pic
+    let url = "http://localhost:4000/images" + this.props.userData.pic
     if (this.props.modifyProfile) {
       return (
         <form className="profile-container" onSubmit={this.handleSubmit}>
@@ -115,7 +112,7 @@ class UnconnectedMyAccount extends Component {
         </form>
       )
     }
-    let url = "http://localhost:4000/images" + this.props.userData.pic
+    // let url = "http://localhost:4000/images" + this.props.userData.pic
     return (
       <div className="profile-container">
         <img className="profile-pic" src={url} />
