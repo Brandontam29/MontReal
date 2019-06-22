@@ -183,16 +183,30 @@ app.post("/otheraccount", upload.none(), (req, res) => {
   })
 })
 
-app.post("/thread", upload.none(), function(req, res) {
+app.get("/threads/:id", upload.none(), function(req, res) {
   console.log("finding thread", req.body)
   MongoClient.connect(url, (err, db) => {
     if (err) throw err
     let dbi = db.db("Geo-Threads")
     dbi
       .collection("Threads")
-      .findOne({ threadId: req.body.threadId }, function(err, threadData) {
+      .findOne({ threadId: req.params.id }, function(err, thread) {
         db.close()
-        res.send(JSON.stringify({ status: true, threadData }))
+        res.json({ thread })
+      })
+  })
+})
+
+app.get("/authors/:id", upload.none(), function(req, res) {
+  console.log("finding original posters", req.body)
+  MongoClient.connect(url, (err, db) => {
+    if (err) throw err
+    let dbi = db.db("Geo-Threads")
+    dbi
+      .collection("Users")
+      .findOne({ userId: req.params.id }, function(err, userData) {
+        db.close()
+        res.json({ userData })
       })
   })
 })
@@ -229,6 +243,8 @@ app.post("/commentor", upload.none(), function(req, res) {
   })
 })
 
+app.listen(4000, console.log("server started"))
+
 app.post("/authors", upload.none(), function(req, res) {
   console.log("finding original posters", req.body)
   MongoClient.connect(url, (err, db) => {
@@ -242,5 +258,3 @@ app.post("/authors", upload.none(), function(req, res) {
       })
   })
 })
-
-app.listen(4000, console.log("server started"))
