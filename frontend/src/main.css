@@ -47,6 +47,7 @@ body {
 .container {
   width: 1050px;
   margin: auto;
+  margin-bottom: 35px;
 }
 .map-container {
   margin-top: 30px;
@@ -195,11 +196,14 @@ body {
   color: rgba(255, 255, 255, 0);
 }
 
-.thread-box {
-  margin-left: 50px;
-  margin-top: 50px;
+.thread-container {
+  width: 1050px;
+  margin: auto;
 }
-
+.thread-box {
+  background-color: rgb(253, 255, 255);
+  margin: auto;
+}
 .thread-img {
   border: 1px rgb(116, 116, 116) solid;
   height: 400px;
@@ -208,3 +212,14 @@ body {
 .info-account {
   padding: 5px;
 }
+
+.thread-comment-section {
+}
+
+.contact-container {
+  background-color: rgb(43, 122, 120);
+}
+.contact-box {
+  text-align: center;
+}
+/* #2b7a78 = rgb(43,122,120) */

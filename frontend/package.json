@@ -29,6 +29,7 @@
     "axios": "^0.19.0",
     "dom": "^0.0.3",
     "dotenv": "^8.0.0",
+    "lodash": "^4.17.15",
     "mapbox": "^1.0.0-beta10",
     "react-map-gl": "^4.1.2",
     "react-redux": "^7.0.3",
