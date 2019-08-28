@@ -115,7 +115,10 @@ class UnconnectedThread extends Component {
           <div>{thread.description}</div>
           <div className="thread-comment-section">
             <h3>Comment Section</h3>
-            <form className="profile-container" onSubmit={this.submitComment}>
+            <form
+              className="thread-comment-entry"
+              onSubmit={this.submitComment}
+            >
               <div>
                 <input
                   className="info-box"

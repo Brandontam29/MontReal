@@ -1,11 +1,11 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 
-class UnconnectedContact extends Component {
+class UnconnectedFooter extends Component {
   render = () => {
     return (
-      <div className="contact-container">
-        <div className="contact-box">
+      <div className="footer-container">
+        <div className="footer-box">
           <div>this is the end of the page</div>
           <div>Web Designer: Brandon Tam</div>
           <div>Contact: Brandon.tam29@gmail.com</div>
@@ -24,5 +24,5 @@ class UnconnectedContact extends Component {
     )
   }
 }
-let Contact = connect()(UnconnectedContact)
-export default Contact
+let Footer = connect()(UnconnectedFooter)
+export default Footer

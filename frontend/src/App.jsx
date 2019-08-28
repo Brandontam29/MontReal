@@ -10,7 +10,7 @@ import SearchBar from "./SearchBar.jsx"
 import ThreadBoard from "./ThreadBoard.jsx"
 import Thread from "./Thread.jsx"
 import CreateThread from "./CreateThread.jsx"
-import Contact from "./Contact.jsx"
+import Footer from "./Footer.jsx"
 import "./main.css"
 
 class UnconnectedApp extends Component {
@@ -86,7 +86,7 @@ class UnconnectedApp extends Component {
           path="/otheraccount/:userId"
           component={OtherAccount}
         />
-        <Contact />
+        <Footer />
       </BrowserRouter>
     )
   }
