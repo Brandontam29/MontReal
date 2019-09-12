@@ -17,8 +17,8 @@ class UnconnectedThread extends Component {
     event.preventDefault()
     console.log("submitting a new thread")
     let data = new FormData()
-    data.append("userId", this.props.userData.name)
-    data.append("url", this.state.newComment)
+    data.append("name", this.props.userData.name)
+    data.append("newComment", this.state.newComment)
     fetch("http://localhost:4000/new-comment", {
       method: "POST",
       body: data,
@@ -29,11 +29,6 @@ class UnconnectedThread extends Component {
       })
       .then(responseBody => {
         console.log(responseBody)
-        return (
-          <script LANGUAGE="JavaScript">
-            {window.alert("Succesfully Updated")}
-          </script>
-        )
       })
   }
   findAuthorName = userId => {
@@ -71,7 +66,28 @@ class UnconnectedThread extends Component {
       console.log("ERRROR", error)
     }
   }
-  renderComments(thread) {
+
+  renderCommentSubmition = user => {
+    console.log("ARE WE LOGGED IN?", this.props.userData)
+    if (user) {
+      return (
+        <form className="thread-comment-entry" onSubmit={this.submitComment}>
+          <div>
+            <input
+              className="info-box"
+              type="text"
+              onChange={this.handleCommentChange}
+              placeholder="Add a public comment"
+            />
+            <input type="submit" />
+          </div>
+        </form>
+      )
+    }
+    return <div>Login to comment</div>
+  }
+
+  renderComments = thread => {
     let commentSection = null
     if (thread.comments) {
       commentSection = thread.comments.map(comment => {
@@ -110,20 +126,7 @@ class UnconnectedThread extends Component {
           <div>{thread.description}</div>
           <div className="thread-comment-section">
             <h3>Comment Section</h3>
-            <form
-              className="thread-comment-entry"
-              onSubmit={this.submitComment}
-            >
-              <div>
-                <input
-                  className="info-box"
-                  type="text"
-                  onChange={this.handleCommentChange}
-                  placeholder="Add a public comment"
-                />
-                <input type="submit" />
-              </div>
-            </form>
+            {this.renderCommentSubmition(this.props.userData)}
             {this.renderComments(thread)}
           </div>
         </div>
