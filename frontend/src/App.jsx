@@ -41,7 +41,7 @@ class UnconnectedApp extends Component {
           <Link to="/">
             <img
               className="logo"
-              src="http://localhost:4000/images/MontReal_dark.png"
+              src="http://localhost:4000/images/MontReal_black.png"
             />
           </Link>
           <SearchBar />

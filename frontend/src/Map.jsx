@@ -1,7 +1,15 @@
 import React, { Component } from "react"
 import ReactMapGL from "react-map-gl"
-import dotenv from "dotenv"
-dotenv.config()
+// import dotenv from "dotenv"
+// require("dotenv").config()
+
+// const result = dotenv.config()
+
+// if (result.error) {
+//   throw result.error
+// }
+
+// console.log(result.parsed)
 
 class Map extends Component {
   state = {
@@ -20,7 +28,7 @@ class Map extends Component {
         <ReactMapGL
           {...this.state.viewport}
           onViewportChange={viewport => this.setState({ viewport })}
-          mapboxApiAccessToken={process.env.MAPBOXGL_API}
+          mapboxApiAccessToken="pk.eyJ1IjoiYnJhbmRvbi10YW0yOSIsImEiOiJjanZpOHVocWEwM2ZkNGFxcmgxYmg4ajY5In0.WS9KYiSNKNkOOYE8NH_wAA"
         />
       </div>
     )

@@ -6,24 +6,20 @@ class UnconnectedThread extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      comment: ""
+      newComment: ""
     }
   }
   handleCommentChange = event => {
-    this.setState({ comment: event.target.value })
+    this.setState({ newComment: event.target.value })
   }
 
   submitComment = event => {
     event.preventDefault()
     console.log("submitting a new thread")
     let data = new FormData()
-    data.append("userId", this.props.userData.userId)
-    data.append("url", this.state.url)
-    data.append("location", this.state.location)
-    data.append("title", this.state.title)
-    data.append("description", this.state.description)
-    console.log("right before fetch", data)
-    fetch("http://localhost:4000/create-thread", {
+    data.append("userId", this.props.userData.name)
+    data.append("url", this.state.newComment)
+    fetch("http://localhost:4000/new-comment", {
       method: "POST",
       body: data,
       credentials: "include"
@@ -36,7 +32,6 @@ class UnconnectedThread extends Component {
         return (
           <script LANGUAGE="JavaScript">
             {window.alert("Succesfully Updated")}
-            {window.history.back()}
           </script>
         )
       })
@@ -123,7 +118,7 @@ class UnconnectedThread extends Component {
                 <input
                   className="info-box"
                   type="text"
-                  onChange={this.handleTitleChange}
+                  onChange={this.handleCommentChange}
                   placeholder="Add a public comment"
                 />
                 <input type="submit" />
