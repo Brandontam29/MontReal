@@ -243,6 +243,21 @@ app.post("/commentor", upload.none(), function(req, res) {
   })
 })
 
+app.post("/new-comment", upload.none(), function(req, res) {
+  console.log("posting thread", req.body)
+  MongoClient.connect(url, (err, db) => {
+    if (err) throw err
+    let dbi = db.db("Geo-Threads")
+    dbi.collection("Threads").insertOne({
+      name: req.body.name,
+      comment: req.body.newComment,
+      replies: Array
+    })
+    res.send("signup successful")
+    console.log("signup successful")
+  })
+})
+
 app.listen(4000, console.log("server started"))
 
 app.post("/authors", upload.none(), function(req, res) {
