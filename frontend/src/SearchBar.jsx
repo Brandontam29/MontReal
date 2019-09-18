@@ -10,14 +10,12 @@ class UnconnectedSearchBar extends Component {
   }
 
   handleSearchChange = event => {
-    console.log(event.target.value)
     this.setState({
       query: event.target.value
     })
   }
 
   handleSubmit = event => {
-    console.log("hi")
     event.preventDefault()
     this.props.dispatch({
       type: "searchQuery",

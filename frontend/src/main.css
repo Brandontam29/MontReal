@@ -1,15 +1,9 @@
 body {
   background-color: rgb(219, 219, 219);
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
+  font: 15px -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica Neue, Arial,
+    Helvetica, Geneva, sans-serif;
   color: rgb(50, 50, 50);
-}
-
-.logo {
-  object-fit: contain;
-  height: 82px;
-  position: relative;
-  margin-left: 40px;
 }
 
 .navigation-bar {
@@ -19,12 +13,38 @@ body {
   justify-content: space-between;
   align-items: center;
 }
+.logo {
+  object-fit: contain;
+  height: 82px;
+  position: relative;
+  margin-left: 40px;
+}
+
+.search-bar {
+  width: 500px;
+  background-color: rgb(250, 250, 250);
+  border-color: rgb(77, 77, 77);
+  border: none;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  cursor: pointer;
+  height: 28px;
+  margin-top: -3px;
+  padding-left: 10px;
+}
 
 .search-icon {
   background-color: rgb(0, 0, 0);
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  margin-top: -3px;
   height: 30px;
-  margin: -3px;
   cursor: pointer;
+  /* border: 2px rgb(245, 245, 245) solid; */
+}
+
+.search-icon:hover {
+  background-color: rgba(250, 250, 250, 0.5);
 }
 
 .nav-bar-link-box {
@@ -34,18 +54,17 @@ body {
 }
 
 .nav-bar-links {
-  color: rgb(255, 255, 255);
+  color: rgb(245, 245, 245);
   padding: 24px;
-
   font-size: 16px;
   text-align: center;
   cursor: pointer;
-  border-left: 1px rgb(255, 255, 255) solid;
+  border-left: 1px rgb(245, 244, 244) solid;
   text-decoration: none;
 }
 
 .nav-bar-links:hover {
-  background-color: rgba(255, 255, 255, 0.25);
+  background-color: rgba(250, 250, 250, 0.25);
 }
 
 .container {
@@ -56,7 +75,6 @@ body {
 .map-container {
   margin-top: 30px;
   margin-bottom: 30px;
-  /* border: 1px rgb(0, 18, 19) solid !important; */
   visibility: visible;
   padding-top: 3px;
   padding-bottom: 3px;
@@ -76,34 +94,44 @@ body {
 }
 
 .threadboard-container {
-  background-color: rgb(255, 255, 255);
-  border: 1px rgb(116, 116, 116) solid;
+  /* border: 1px rgb(116, 116, 116) solid; */
   position: relative;
   margin-top: 9px;
-}
-.threadboard-sperators {
-  border-bottom: 1px rgb(116, 116, 116) solid;
-  padding-top: 15px;
-  padding-bottom: 15px;
-}
-.threadboard-sperators:hover {
-  background-color: rgba(255, 255, 255, 0.103);
+  display: flex;
+  flex-direction: column;
 }
 
 .threadboard-box {
-  margin-left: 20px;
+  background-color: rgb(250, 250, 250);
+  margin-bottom: 20px;
+  border: 1px rgb(116, 116, 116) solid;
+  border-radius: 4px;
+  padding-top: 15px;
+  padding-left: 15px;
+  padding-bottom: 15px;
   display: flex;
 }
+
+.threadboard-box:hover {
+  background-color: rgba(250, 250, 250, 0.75);
+}
+
 .threadboard-img-container {
+  background-color: rgb(250, 250, 250);
   border: 1px rgb(116, 116, 116) solid;
-  max-height: 200px;
-  max-width: 400px;
+  padding: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  width: 300px;
 }
 
 .threadboard-img {
   max-height: 200px;
+  max-width: 300px;
   width: auto;
-  max-width: 400px;
+  object-fit: contain;
 }
 
 .threadboard-textbox {
@@ -111,21 +139,51 @@ body {
   margin-left: 350px;
   margin-right: 35px;
 }
-.threadboard-location {
-  color: rgb(110, 126, 128);
-  font-size: 12px;
-  letter-spacing: 1.3px;
-}
+
 .threadboard-textbox h3 {
   margin-top: 6px;
   margin-bottom: 4px;
+  font-size: 18px;
+  font-weight: bold;
 }
 
-.author-text {
+.threadboard-first-line {
+  color: rgb(110, 126, 128);
+  text-decoration: none;
+  font-size: 12px;
+  letter-spacing: 1.3px;
+}
+
+.threadboard-author-text {
+  color: rgb(110, 126, 128);
+  text-decoration: none;
+  font-size: 12px;
+  letter-spacing: 1.1px;
+  font-weight: 500;
+}
+
+.threadboard-author-text:hover {
+  text-decoration: underline;
+}
+
+/* .threadboard-location {
+  color: rgb(110, 126, 128);
+  font-size: 12px;
+  letter-spacing: 1.3px;
+} */
+
+.threadboard-link-text {
   color: rgb(0, 10, 10);
   text-decoration: none;
   margin-top: 3px;
   margin-bottom: 10px;
+}
+
+.threadboard-description {
+  color: rgb(0, 10, 10);
+  text-decoration: none;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .profile-pic {
@@ -134,18 +192,6 @@ body {
 
 .searchbar-flex {
   display: flex;
-}
-
-.search-bar {
-  width: 500px;
-  background-color: #fafafa;
-  border-color: rgb(77, 77, 77);
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  height: 28px;
-  margin-top: -3px;
-  padding-left: 10px;
 }
 
 .goBack {
@@ -163,7 +209,7 @@ body {
 }
 
 .login-button {
-  color: rgb(255, 255, 255);
+  color: rgb(250, 250, 250);
   background-color: rgb(43, 120, 122);
   padding: 6px;
   font-size: 10;
@@ -185,7 +231,7 @@ body {
 
 .info-box {
   width: 200px;
-  background-color: rgb(254, 255, 255);
+  background-color: rgb(250, 250, 250);
   border-color: rgb(77, 77, 77);
   padding: 10px 15px;
   margin: 8px 3px;
@@ -202,7 +248,7 @@ body {
 
 .margin-bottom {
   margin-bottom: 500px;
-  color: rgba(255, 255, 255, 0);
+  color: rgba(250, 250, 250, 0);
 }
 
 .thread-container {
@@ -210,44 +256,125 @@ body {
   margin: auto;
 }
 .thread-box {
-  background-color: rgb(253, 255, 255);
+  background-color: rgb(250, 250, 250);
   margin: auto;
   height: 100%;
   padding-top: 20px;
   padding-left: 20px;
   padding-right: 20px;
-  padding-bottom: 25px;
+  padding-bottom: 60px;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
 }
+
+.thread-box h3 {
+  font-size: 28px;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+
 .thread-img {
   border: 1px rgb(116, 116, 116) solid;
   height: 400px;
 }
 
-.info-account {
-  padding: 5px;
+.thread-author-text {
+  color: rgb(110, 126, 128);
+  text-decoration: none;
+  font-size: 12px;
+  letter-spacing: 1.1px;
+  margin-top: -20px;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.thread-author-text:hover {
+  text-decoration: underline;
+}
+
+.thread-description {
+  padding-top: 20px;
 }
 
 .thread-comment-section {
-  margin-top: 50px;
 }
+
+.thread-comment-section hr {
+  width: 95%;
+  height: 1px;
+  color: rgb(199, 199, 199);
+  background-color: rgb(199, 199, 199);
+  margin-top: 60px;
+  margin-bottom: 30px;
+  border: 0px;
+}
+
+.thread-comment-section h3 {
+  font-size: 18px;
+  color: rgb(0, 0, 0);
+}
+
 .thread-comment-entry {
   margin-left: 30px;
   margin-top: 30px;
   padding: 30px;
 }
 
+.thread-comment-container {
+  padding-top: 20px;
+}
+
+.thread-comment {
+  margin-bottom: 10px;
+}
+
+.thread-comment-author {
+  text-decoration: none;
+  font-weight: 500;
+  color: rgb(0, 0, 0);
+}
+
+.thread-comment-author:hover {
+  text-decoration: underline;
+}
+
+.thread-reply-container {
+  margin-left: 10px;
+  padding-left: 5px;
+  border-left: 2px rgb(146, 146, 146) solid;
+}
+
+.thread-reply {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.info-account {
+  padding: 5px;
+}
+
 .footer-container {
-  background-color: rgb(100, 100, 100);
+  /* background-color: rgb(100, 100, 100); */
   height: 100%;
+  max-height: 800px;
   margin-top: 25px;
   padding-top: 30px;
   padding-bottom: 50px;
   line-height: 25px;
-  color: rgb(43, 43, 43);
+  color: rgb(75, 75, 75);
 }
 .footer-container a {
   font-family: Arial, Helvetica, sans-serif;
-  color: rgb(43, 43, 43);
+  color: rgb(75, 75, 75);
+}
+.footer-line {
+  width: 80%;
+  height: 1px;
+  color: rgb(150, 150, 150);
+  background-color: rgb(150, 150, 150);
+  margin-bottom: 50px;
+  border: 0px;
 }
 .footer-box {
   width: 1050px;

@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
-// import axios from "axios"
+import axios from "axios"
 
 class UnconnectedMyAccount extends Component {
   constructor(props) {
@@ -23,7 +23,7 @@ class UnconnectedMyAccount extends Component {
   }
 
   handleFileSelector = event => {
-    console.log(event.target.files[0])
+    console.log("handle file selector thing", event.target.files[0])
     this.setState({ pictureName: event.target.files[0] })
   }
 
@@ -71,10 +71,11 @@ class UnconnectedMyAccount extends Component {
         })
       })
   }
+
   render = () => {
-    console.log("rendering profile")
-    console.log(this.props.userData.pic)
-    let url = "http://localhost:4000/images" + this.props.userData.pic
+    console.log("USER PIC PATH PROP", this.props.userData.pic)
+    console.log("USER PIC PATH STATE", this.state.pictureName)
+    let url = "http://localhost:4000/images" + this.state.pictureName
     if (this.props.modifyProfile) {
       return (
         <form className="profile-container" onSubmit={this.handleSubmit}>
@@ -144,6 +145,7 @@ let mapStateToProps = state => {
     modifyProfile: state.modifyProfile
   }
 }
+
 let MyAccount = connect(mapStateToProps)(UnconnectedMyAccount)
 
 export default MyAccount

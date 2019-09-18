@@ -5,9 +5,8 @@ class UnconnectedFooter extends Component {
   render = () => {
     return (
       <div className="footer-container">
-        <hr />
+        <hr className="footer-line" />
         <div className="footer-box">
-          <div>this is the end of the page</div>
           <div>Web Designer: Brandon Tam</div>
           <div>Contact: Brandon.tam29@gmail.com</div>
           <div>

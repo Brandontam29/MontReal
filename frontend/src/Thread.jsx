@@ -31,6 +31,7 @@ class UnconnectedThread extends Component {
         console.log(responseBody)
       })
   }
+
   findAuthorName = userId => {
     return fetch("http://localhost:4000/authors/" + userId, {
       credentials: "include"
@@ -92,17 +93,31 @@ class UnconnectedThread extends Component {
     if (thread.comments) {
       commentSection = thread.comments.map(comment => {
         return (
-          <div>
-            <div>{comment.commentorName}</div>
-            <div>{comment.comment}</div>
-            {comment.replies.map(reply => {
-              return (
-                <div>
-                  <div>{reply.commentorName}</div>
-                  <div>{reply.comment}</div>
-                </div>
-              )
-            })}
+          <div className="thread-comment-container">
+            <div className="thread-comment">
+              <Link
+                className="thread-comment-author"
+                to={"/otheraccount/" + comment.commentorId}
+              >
+                {comment.commentorName}
+              </Link>
+              <div>{comment.comment}</div>{" "}
+            </div>
+            <div className="thread-reply-container">
+              {comment.replies.map(reply => {
+                return (
+                  <div className="thread-reply">
+                    <Link
+                      className="thread-comment-author"
+                      to={"/otheraccount/" + reply.replierId}
+                    >
+                      {reply.replierName}
+                    </Link>
+                    <div>{reply.reply}</div>
+                  </div>
+                )
+              })}
+            </div>
           </div>
         )
       })
@@ -121,10 +136,16 @@ class UnconnectedThread extends Component {
       <div className="thread-container">
         <div className="thread-box">
           <img className="thread-img" src={threadUrl} />
-          <h3>{thread.title}</h3>
-          <div>{thread.authorName}</div>
-          <div>{thread.description}</div>
+          <h3>{thread.title}</h3>{" "}
+          <Link
+            className="thread-author-text"
+            to={"/otheraccount/" + thread.authorId}
+          >
+            {thread.authorName}
+          </Link>
+          <div className="thread-description">{thread.description}</div>
           <div className="thread-comment-section">
+            <hr />
             <h3>Comment Section</h3>
             {this.renderCommentSubmition(this.props.userData)}
             {this.renderComments(thread)}
@@ -135,6 +156,13 @@ class UnconnectedThread extends Component {
   }
 }
 
-let Thread = connect()(UnconnectedThread)
+let mapStateToProps = state => {
+  return {
+    loggedIn: state.loggedIn,
+    userData: state.userData
+  }
+}
+
+let Thread = connect(mapStateToProps)(UnconnectedThread)
 
 export default Thread

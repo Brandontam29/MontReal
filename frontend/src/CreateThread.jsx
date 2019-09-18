@@ -11,7 +11,8 @@ class UnconnectedCreateThread extends Component {
       url: "/soon_image.png", //need to find a way to upload an image
       location: "",
       title: "",
-      description: ""
+      description: "",
+      selectedFile: null
     }
   }
 

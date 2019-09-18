@@ -15,7 +15,6 @@ class UnconnectedThreadBoard extends Component {
         return x.text()
       })
       .then(async responseBody => {
-        console.log("generating Thread board")
         let body = JSON.parse(responseBody)
         let threads = await Promise.all(
           body.threads.map(async thread => {
@@ -30,25 +29,19 @@ class UnconnectedThreadBoard extends Component {
                 return x.text()
               })
               .then(responseBody => {
-                console.log("finding authors")
                 let body = JSON.parse(responseBody)
-                console.log(body)
                 let authorName = body.userData.name
                 return authorName
               })
             return { ...thread, authorName }
           })
         )
-        this.setState(
-          {
-            threads: threads
-          },
-          () => console.log("THREADBOARD STATE", this.state)
-        )
+        this.setState({
+          threads: threads
+        })
       })
   }
   render = () => {
-    console.log("QUERY", this.props.query)
     let searchFiltered = this.state.threads.filter(
       thread =>
         thread.title.toLowerCase().includes(this.props.query) ||
@@ -61,21 +54,23 @@ class UnconnectedThreadBoard extends Component {
           let threadLink = "/thread/" + thread.threadId
           let authorLink = "/otheraccount/" + thread.authorId
           return (
-            <Link className="author-text" to={threadLink}>
-              <div className="threadboard-sperators">
-                <div className="threadboard-box">
-                  <div className="threadboard-img-container">
-                    <img src={threadUrl} className="threadboard-img" />
+            <Link className="threadboard-link-text" to={threadLink}>
+              <div className="threadboard-box">
+                <div className="threadboard-img-container">
+                  <img src={threadUrl} className="threadboard-img" />
+                </div>
+                <div className="threadboard-textbox">
+                  <div className="threadboard-first-line">
+                    <Link className="threadboard-author-text" to={authorLink}>
+                      {thread.authorName}
+                    </Link>{" "}
+                    posted about {thread.location.toUpperCase()}
+                    {/* <div className="threadboard-location"></div> */}
                   </div>
-                  <div className="threadboard-textbox">
-                    <div className="threadboard-location">
-                      {thread.location.toUpperCase()}
-                    </div>
-                    <h3>{thread.title}</h3>
-                    <Link className="author-text" to={authorLink}>
-                      <div className="author-text">{thread.authorName}</div>
-                    </Link>
-                    <div>{thread.description}</div>
+                  <h3>{thread.title}</h3>
+
+                  <div className="threadboard-description">
+                    {thread.description}
                   </div>
                 </div>
               </div>
