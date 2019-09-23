@@ -2,6 +2,15 @@ import React, { Component } from "react"
 import { connect } from "react-redux"
 
 class UnconnectedLogin extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      username: "",
+      password: "",
+      img: ""
+    }
+  }
+
   handleUsernameChange = event => {
     console.log("password: ", event.target.value)
     this.setState({ username: event.target.value })
@@ -40,6 +49,7 @@ class UnconnectedLogin extends Component {
         })
       })
   }
+
   goNavigate = () => window.history.back()
 
   render = () => {

@@ -20,7 +20,6 @@ class UnconnectedApp extends Component {
         <div className="map-container">
           <Map />
         </div>
-
         <ThreadBoard />
       </div>
     )

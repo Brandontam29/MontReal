@@ -12,9 +12,17 @@ class UnconnectedCreateThread extends Component {
       location: "",
       title: "",
       description: "",
-      selectedFile: null
+      // selectedFile: null, // not sure if gonna use this
+      imageName: ""
     }
   }
+
+  // arrayBufferToBase64 = buffer => {
+  //   var binary = ""
+  //   var bytes = [].slice.call(new Uint8Array(buffer))
+  //   bytes.forEach(b => (binary += String.fromCharCode(b)))
+  //   return window.btoa(binary)
+  // }
 
   handleLocationChange = event => {
     this.setState({ location: event.target.value })

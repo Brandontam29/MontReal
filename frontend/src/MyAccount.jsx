@@ -6,14 +6,22 @@ class UnconnectedMyAccount extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      pictureName: this.props.userData.pic,
+      pic: this.props.userData.pic,
       userId: this.props.userData.userId,
       username: this.props.userData.username,
       password: this.props.userData.password,
       name: this.props.userData.name,
       bio: this.props.userData.bio,
-      description: this.props.userData.description
+      description: this.props.userData.description,
+      img: ""
     }
+  }
+
+  arrayBufferToBase64 = buffer => {
+    var binary = ""
+    var bytes = [].slice.call(new Uint8Array(buffer))
+    bytes.forEach(b => (binary += String.fromCharCode(b)))
+    return window.btoa(binary)
   }
 
   renderModifyProfile = () => {
@@ -23,8 +31,8 @@ class UnconnectedMyAccount extends Component {
   }
 
   handleFileSelector = event => {
-    console.log("handle file selector thing", event.target.files[0])
-    this.setState({ pictureName: event.target.files[0] })
+    console.log("handle file selector thing", event.target.files)
+    this.setState({ pic: event.target.files[0] })
   }
 
   handlePasswordChange = event => {
@@ -53,7 +61,7 @@ class UnconnectedMyAccount extends Component {
     data.append("name", this.state.name)
     data.append("bio", this.state.bio)
     data.append("description", this.state.description)
-    data.append("pic", this.state.pictureName)
+    data.append("pic", this.state.pic)
     console.log("right before fetch", data)
     fetch("http://localhost:4000/modify-profile", {
       method: "POST",
@@ -74,8 +82,10 @@ class UnconnectedMyAccount extends Component {
 
   render = () => {
     console.log("USER PIC PATH PROP", this.props.userData.pic)
-    console.log("USER PIC PATH STATE", this.state.pictureName)
-    let url = "http://localhost:4000/images" + this.state.pictureName
+    console.log("USER PIC PATH STATE", this.state.pic)
+    console.log("USER PROP", this.props.userData)
+    console.log("USER STATE", this.state)
+    let url = "http://localhost:4000/images" + this.state.pic
     if (this.props.modifyProfile) {
       return (
         <form className="profile-container" onSubmit={this.handleSubmit}>
