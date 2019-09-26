@@ -104,7 +104,7 @@ body {
 .threadboard-box {
   background-color: rgb(250, 250, 250);
   margin-bottom: 20px;
-  border: 1px rgb(116, 116, 116) solid;
+  border: 1px rgb(155, 155, 155) solid;
   border-radius: 4px;
   padding-top: 15px;
   padding-left: 15px;
@@ -118,7 +118,7 @@ body {
 
 .threadboard-img-container {
   background-color: rgb(250, 250, 250);
-  border: 1px rgb(116, 116, 116) solid;
+  border: 1px rgb(155, 155, 155) solid;
   padding: 0px;
   display: flex;
   justify-content: center;
@@ -325,7 +325,7 @@ body {
 }
 
 .thread-comment {
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 .thread-comment-author {
@@ -348,6 +348,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding-top: 5px;
 }
 
 .info-account {

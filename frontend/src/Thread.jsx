@@ -15,9 +15,12 @@ class UnconnectedThread extends Component {
 
   submitComment = event => {
     event.preventDefault()
-    console.log("submitting a new thread")
+    console.log("submitting a new comment")
+    console.log(this.props)
     let data = new FormData()
-    data.append("name", this.props.userData.name)
+    data.append("currentThread", this.props.match.params.threadId)
+    data.append("commentorName", this.props.userData.name)
+    data.append("commentorId", this.props.userData.useId)
     data.append("newComment", this.state.newComment)
     fetch("http://localhost:4000/new-comment", {
       method: "POST",
@@ -30,30 +33,23 @@ class UnconnectedThread extends Component {
       .then(responseBody => {
         console.log(responseBody)
       })
+    console.log("comment submitted successfully")
   }
 
-  findAuthorName = userId => {
-    return fetch("http://localhost:4000/authors/" + userId, {
+  findAuthorName = async userId => {
+    const response = await fetch("http://localhost:4000/authors/" + userId, {
       credentials: "include"
     })
-      .then(response => {
-        return response.json()
-      })
-      .then(data => {
-        return data.userData.name
-      })
+    const data = await response.json()
+    return data.userData.name
   }
 
-  getThread = threadId => {
-    return fetch("http://localhost:4000/threads/" + threadId, {
+  getThread = async threadId => {
+    const response = await fetch("http://localhost:4000/threads/" + threadId, {
       credentials: "include"
     })
-      .then(response => {
-        return response.json()
-      })
-      .then(data => {
-        return data.thread
-      })
+    const data = await response.json()
+    return data.thread
   }
 
   async componentWillMount() {
@@ -69,8 +65,7 @@ class UnconnectedThread extends Component {
   }
 
   renderCommentSubmition = user => {
-    console.log("ARE WE LOGGED IN?", this.props.userData)
-    if (user) {
+    if (user.name) {
       return (
         <form className="thread-comment-entry" onSubmit={this.submitComment}>
           <div>
