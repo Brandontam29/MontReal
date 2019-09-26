@@ -140,7 +140,6 @@ app.post("/signup", upload.none(), function(req, res) {
       pic: "/blank-profile.png"
     })
     res.send("signup successful")
-    console.log("signup successful")
   })
 })
 
@@ -165,7 +164,6 @@ app.post("/modify-profile", upload.none(), function(req, res) {
     )
     db.close()
     res.send("profile updated")
-    console.log("profile updated")
   })
 })
 
@@ -184,7 +182,6 @@ app.post("/otheraccount", upload.none(), (req, res) => {
 })
 
 app.get("/threads/:id", upload.none(), function(req, res) {
-  console.log("finding thread", req.body)
   MongoClient.connect(url, (err, db) => {
     if (err) throw err
     let dbi = db.db("Geo-Threads")
@@ -198,7 +195,6 @@ app.get("/threads/:id", upload.none(), function(req, res) {
 })
 
 app.get("/authors/:id", upload.none(), function(req, res) {
-  console.log("finding original posters", req.body)
   MongoClient.connect(url, (err, db) => {
     if (err) throw err
     let dbi = db.db("Geo-Threads")
@@ -219,13 +215,13 @@ app.post("/create-thread", upload.none(), function(req, res) {
     dbi.collection("Threads").insertOne({
       authorId: req.body.userId,
       threadId: generateThreadId(),
-      url: req.body.url, //need to find a way to upload an image
+      url: req.body.url,
       location: req.body.location,
       title: req.body.title,
-      description: req.body.description
+      description: req.body.description,
+      comments: Array
     })
-    res.send("signup successful")
-    console.log("signup successful")
+    res.send("thread created")
   })
 })
 
@@ -243,25 +239,7 @@ app.post("/commentor", upload.none(), function(req, res) {
   })
 })
 
-app.post("/new-comment", upload.none(), function(req, res) {
-  console.log("posting thread", req.body)
-  MongoClient.connect(url, (err, db) => {
-    if (err) throw err
-    let dbi = db.db("Geo-Threads")
-    dbi.collection("Threads").insertOne({
-      name: req.body.name,
-      comment: req.body.newComment,
-      replies: Array
-    })
-    res.send("signup successful")
-    console.log("signup successful")
-  })
-})
-
-app.listen(4000, console.log("server started"))
-
 app.post("/authors", upload.none(), function(req, res) {
-  console.log("finding original posters", req.body)
   MongoClient.connect(url, (err, db) => {
     if (err) throw err
     let dbi = db.db("Geo-Threads")
@@ -273,3 +251,46 @@ app.post("/authors", upload.none(), function(req, res) {
       })
   })
 })
+
+app.post("/new-comment", upload.none(), function(req, res) {
+  console.log("new comment", req.body)
+  MongoClient.connect(url, (err, db) => {
+    if (err) throw err
+    let dbi = db.db("Geo-Threads")
+    dbi.collection("Threads").findOneAndUpdate(
+      { threadId: req.body.currentThread },
+      {
+        comments: [
+          {
+            commentorName: req.body.commentorName,
+            commentorId: req.body.commentId,
+            comment: req.body.newComment,
+            replies: Array
+          }
+        ]
+      }
+    )
+    res.send("new comment uploaded")
+    console.log("new comment posted")
+  })
+})
+
+// app.post("/new-reply", upload.none(), function(req, res) {
+//   console.log("posting thread", req.body)
+//   MongoClient.connect(url, (err, db) => {
+//     if (err) throw err
+//     let dbi = db.db("Geo-Threads")
+//     dbi
+//       .collection("Threads")
+//       .findOne({ threadId: req.body.threadId })
+//       .insertOne({
+//         commentorName: req.body.commentorName,
+//         commentorId: req.body.commentId,
+//         comment: req.body.newComment,
+//         replies: Array
+//       })
+//     res.send("new reply uploaded")
+//   })
+// })
+
+app.listen(4000, console.log("server started"))
