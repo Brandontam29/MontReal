@@ -15,5 +15,5 @@ Features include:
 Technologies include:
   - Front-end: React.js, Redux, React-Map-Gl, HTML, CSS
   - Backend: Node.js, Express, MongoDB
-  - Other: Git, Github, NPM
+  - Other: Git, Github, NPM, Yarn
 
