@@ -6,21 +6,31 @@ class UnconnectedThread extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      newComment: ""
+      newComment: "",
+      selectedComment: undefined,
+      newReply: ""
     }
   }
   handleCommentChange = event => {
     this.setState({ newComment: event.target.value })
   }
 
+  handleSelectedCommentChange = comment => {
+    this.setState({ selectedComment: comment })
+    console.log("THE STATE", this.state)
+  }
+
+  handleReplyChange = event => {
+    this.setState({ newReply: event.target.value })
+  }
+
   submitComment = event => {
     event.preventDefault()
-    console.log("submitting a new comment")
-    console.log(this.props)
+
     let data = new FormData()
     data.append("currentThread", this.props.match.params.threadId)
     data.append("commentorName", this.props.userData.name)
-    data.append("commentorId", this.props.userData.useId)
+    data.append("commentorId", this.props.userData.userId)
     data.append("newComment", this.state.newComment)
     fetch("http://localhost:4000/new-comment", {
       method: "POST",
@@ -34,6 +44,34 @@ class UnconnectedThread extends Component {
         console.log(responseBody)
       })
     console.log("comment submitted successfully")
+  }
+
+  submitReply = event => {
+    event.preventDefault()
+    console.log("Replying to ", this.state.selectedComment)
+    let data = new FormData()
+    data.append("currentThread", this.props.match.params.threadId)
+
+    data.append("commentorName", this.state.selectedComment.commentorName)
+    data.append("commentorId", this.state.selectedComment.commentorId)
+    data.append("currentComment", this.state.selectedComment.currentComment)
+
+    data.append("replierName", this.props.userData.name)
+    data.append("replierId", this.props.userData.userId)
+    data.append("newReply", this.state.newReply)
+
+    fetch("http://localhost:4000/new-reply", {
+      method: "POST",
+      body: data,
+      credentials: "include"
+    })
+      .then(x => {
+        return x.text()
+      })
+      .then(responseBody => {
+        console.log(responseBody)
+      })
+    console.log("Reply submitted successfully")
   }
 
   findAuthorName = async userId => {
@@ -83,6 +121,34 @@ class UnconnectedThread extends Component {
     return <div>Login to comment</div>
   }
 
+  renderReplySubmition = comment => {
+    console.log("THIS IS A REPLY TO ", comment)
+    if (this.props.userData.name) {
+      return (
+        <form className="thread-comment-entry" onSubmit={this.submitReply}>
+          <div>
+            <input
+              type="hidden"
+              name="selectedComment"
+              value={comment}
+              ref={comment => {
+                this.handleSelectedCommentChange = comment
+              }}
+            />
+            <input
+              className="info-box"
+              type="text"
+              onChange={this.handleReplyChange}
+              placeholder="Add a reply"
+            />
+            <input type="submit" />
+          </div>
+        </form>
+      )
+    }
+    return <div></div>
+  }
+
   renderComments = thread => {
     let commentSection = null
     if (thread.comments) {
@@ -112,6 +178,7 @@ class UnconnectedThread extends Component {
                   </div>
                 )
               })}
+              {this.renderReplySubmition(comment)}
             </div>
           </div>
         )

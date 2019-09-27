@@ -257,17 +257,17 @@ app.post("/new-comment", upload.none(), function(req, res) {
   MongoClient.connect(url, (err, db) => {
     if (err) throw err
     let dbi = db.db("Geo-Threads")
-    dbi.collection("Threads").findOneAndUpdate(
+    dbi.collection("Threads").update(
       { threadId: req.body.currentThread },
       {
-        comments: [
-          {
+        $push: {
+          comments: {
             commentorName: req.body.commentorName,
-            commentorId: req.body.commentId,
+            commentorId: req.body.commentorId,
             comment: req.body.newComment,
-            replies: Array
+            replies: []
           }
-        ]
+        }
       }
     )
     res.send("new comment uploaded")
@@ -275,22 +275,33 @@ app.post("/new-comment", upload.none(), function(req, res) {
   })
 })
 
-// app.post("/new-reply", upload.none(), function(req, res) {
-//   console.log("posting thread", req.body)
-//   MongoClient.connect(url, (err, db) => {
-//     if (err) throw err
-//     let dbi = db.db("Geo-Threads")
-//     dbi
-//       .collection("Threads")
-//       .findOne({ threadId: req.body.threadId })
-//       .insertOne({
-//         commentorName: req.body.commentorName,
-//         commentorId: req.body.commentId,
-//         comment: req.body.newComment,
-//         replies: Array
-//       })
-//     res.send("new reply uploaded")
-//   })
-// })
+app.post("/new-reply", upload.none(), function(req, res) {
+  console.log("posting thread", req.body)
+  MongoClient.connect(url, (err, db) => {
+    if (err) throw err
+    let dbi = db.db("Geo-Threads")
+    dbi.collection("Threads").update(
+      {
+        threadId: req.body.threadId,
+        comments: {
+          commentorName: req.body.commentorName,
+          commentorId: req.body.commentorId,
+          comment: req.body.newComment
+        }
+      },
+      {
+        $push: {
+          "comments.$.replies": {
+            replierName: req.body.commentorName,
+            replierId: req.body.commentorId,
+            reply: req.body.newComment
+          }
+        }
+      }
+    )
+    res.send("new reply uploaded")
+    console.log("new reply posted")
+  })
+})
 
 app.listen(4000, console.log("server started"))
