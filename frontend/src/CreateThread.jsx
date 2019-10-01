@@ -8,21 +8,17 @@ class UnconnectedCreateThread extends Component {
     this.state = {
       authorId: this.props.userData.userId,
       // threadId: will be given by the back end
-      url: "/soon_image.png", //need to find a way to upload an image
+      url: "", //need to find a way to upload an image
       location: "",
       title: "",
       description: "",
-      // selectedFile: null, // not sure if gonna use this
       imageName: ""
     }
   }
 
-  // arrayBufferToBase64 = buffer => {
-  //   var binary = ""
-  //   var bytes = [].slice.call(new Uint8Array(buffer))
-  //   bytes.forEach(b => (binary += String.fromCharCode(b)))
-  //   return window.btoa(binary)
-  // }
+  handleUrlChange = event => {
+    this.setState({ url: event.target.value })
+  }
 
   handleLocationChange = event => {
     this.setState({ location: event.target.value })
@@ -41,7 +37,7 @@ class UnconnectedCreateThread extends Component {
     console.log("submitting a new thread")
     let data = new FormData()
     data.append("userId", this.props.userData.userId)
-    data.append("url", this.state.url)
+    data.append("url", "/" + this.state.url)
     data.append("location", this.state.location)
     data.append("title", this.state.title)
     data.append("description", this.state.description)
@@ -95,6 +91,16 @@ class UnconnectedCreateThread extends Component {
               type="text"
               onChange={this.handleDescriptionChange}
               placeholder="Tell us more about it!"
+              value={this.state.description}
+            />
+          </div>
+          <div>
+            Image
+            <input
+              className="info-box"
+              type="file"
+              onChange={this.handleUrlChange}
+              placeholder="Choose File"
               value={this.state.description}
             />
           </div>

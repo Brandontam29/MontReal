@@ -1,6 +1,5 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
-import axios from "axios"
 
 class UnconnectedMyAccount extends Component {
   constructor(props) {
@@ -13,15 +12,8 @@ class UnconnectedMyAccount extends Component {
       name: this.props.userData.name,
       bio: this.props.userData.bio,
       description: this.props.userData.description,
-      img: ""
+      file: null
     }
-  }
-
-  arrayBufferToBase64 = buffer => {
-    var binary = ""
-    var bytes = [].slice.call(new Uint8Array(buffer))
-    bytes.forEach(b => (binary += String.fromCharCode(b)))
-    return window.btoa(binary)
   }
 
   renderModifyProfile = () => {
@@ -30,9 +22,12 @@ class UnconnectedMyAccount extends Component {
     })
   }
 
-  handleFileSelector = event => {
-    console.log("handle file selector thing", event.target.files)
-    this.setState({ pic: event.target.files[0] })
+  handlePicChange = event => {
+    console.log("HANDLE PIC CHANGE STATE", event.target.files)
+    this.setState({
+      file: event.target.files,
+      pic: "/" + event.target.files[0].name
+    })
   }
 
   handlePasswordChange = event => {
@@ -62,7 +57,8 @@ class UnconnectedMyAccount extends Component {
     data.append("bio", this.state.bio)
     data.append("description", this.state.description)
     data.append("pic", this.state.pic)
-    console.log("right before fetch", data)
+    data.append("file", this.state.file)
+    console.log("DATA right before fetch", data)
     fetch("http://localhost:4000/modify-profile", {
       method: "POST",
       body: data,
@@ -78,6 +74,18 @@ class UnconnectedMyAccount extends Component {
           newProfile: this.state
         })
       })
+
+    fetch("http://localhost:4000/uploadFile", {
+      method: "POST",
+      body: data,
+      credentials: "include"
+    })
+      .then(x => {
+        return x.text()
+      })
+      .then(responseBody => {
+        console.log(responseBody)
+      })
   }
 
   render = () => {
@@ -91,7 +99,7 @@ class UnconnectedMyAccount extends Component {
         <form className="profile-container" onSubmit={this.handleSubmit}>
           <div>
             Profile Picture
-            <input type="file" onChange={this.handleFileSelector} />
+            <input type="file" onChange={this.handlePicChange} />
           </div>
           <div>
             Password

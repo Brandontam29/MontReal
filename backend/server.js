@@ -167,6 +167,18 @@ app.post("/modify-profile", upload.none(), function(req, res) {
   })
 })
 
+app.post("/uploadFile", upload.single("myFile"), (req, res, next) => {
+  console.log(req.body.file)
+  const file = req.body.file
+  if (!file) {
+    const error = new Error("Please upload a file")
+    error.httpStatusCode = 400
+    return next(error)
+  }
+  console.log("THE UPLOADED FILE", file)
+  res.send(file)
+})
+
 app.post("/otheraccount", upload.none(), (req, res) => {
   console.log(req.body._id)
   MongoClient.connect(url, (err, db) => {
