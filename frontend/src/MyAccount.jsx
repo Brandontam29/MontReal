@@ -48,7 +48,6 @@ class UnconnectedMyAccount extends Component {
 
   handleSubmit = event => {
     event.preventDefault()
-    console.log("updating profile handle submit")
     let data = new FormData()
     data.append("userId", this.props.userData.userId)
     data.append("username", this.props.userData.username)
@@ -58,7 +57,6 @@ class UnconnectedMyAccount extends Component {
     data.append("description", this.state.description)
     data.append("pic", this.state.pic)
     data.append("file", this.state.file)
-    console.log("DATA right before fetch", data)
     fetch("http://localhost:4000/modify-profile", {
       method: "POST",
       body: data,
@@ -68,7 +66,6 @@ class UnconnectedMyAccount extends Component {
         return x.text()
       })
       .then(responseBody => {
-        console.log(responseBody)
         this.props.dispatch({
           type: "submit-profile-modification",
           newProfile: this.state
@@ -84,22 +81,22 @@ class UnconnectedMyAccount extends Component {
         return x.text()
       })
       .then(responseBody => {
-        console.log(responseBody)
+        console.log("RESPONSE FROM FILE UPLOAD", responseBody)
       })
   }
 
   render = () => {
-    console.log("USER PIC PATH PROP", this.props.userData.pic)
-    console.log("USER PIC PATH STATE", this.state.pic)
-    console.log("USER PROP", this.props.userData)
-    console.log("USER STATE", this.state)
     let url = "http://localhost:4000/images" + this.state.pic
     if (this.props.modifyProfile) {
       return (
         <form className="profile-container" onSubmit={this.handleSubmit}>
           <div>
             Profile Picture
-            <input type="file" onChange={this.handlePicChange} />
+            <input
+              type="file"
+              onChange={this.handlePicChange}
+              placeholder="Choose Image"
+            />
           </div>
           <div>
             Password

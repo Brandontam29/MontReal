@@ -167,7 +167,7 @@ app.post("/modify-profile", upload.none(), function(req, res) {
   })
 })
 
-app.post("/uploadFile", upload.single("myFile"), (req, res, next) => {
+app.post("/uploadFile", upload.single("photo"), (req, res, next) => {
   console.log(req.body.file)
   const file = req.body.file
   if (!file) {
@@ -231,7 +231,7 @@ app.post("/create-thread", upload.none(), function(req, res) {
       location: req.body.location,
       title: req.body.title,
       description: req.body.description,
-      comments: Array
+      comments: []
     })
     res.send("thread created")
   })

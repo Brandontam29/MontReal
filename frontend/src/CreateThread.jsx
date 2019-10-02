@@ -17,7 +17,8 @@ class UnconnectedCreateThread extends Component {
   }
 
   handleUrlChange = event => {
-    this.setState({ url: event.target.value })
+    console.log(event.target.files)
+    this.setState({ url: "/" + event.target.files[0].name })
   }
 
   handleLocationChange = event => {
@@ -34,10 +35,10 @@ class UnconnectedCreateThread extends Component {
 
   submitThread = event => {
     event.preventDefault()
-    console.log("submitting a new thread")
+    console.log("submitting a new thread", this.state)
     let data = new FormData()
     data.append("userId", this.props.userData.userId)
-    data.append("url", "/" + this.state.url)
+    data.append("url", this.state.url)
     data.append("location", this.state.location)
     data.append("title", this.state.title)
     data.append("description", this.state.description)
@@ -67,6 +68,15 @@ class UnconnectedCreateThread extends Component {
       return (
         <form className="profile-container" onSubmit={this.submitThread}>
           <div>
+            Image
+            <input
+              className="info-box"
+              type="file"
+              onChange={this.handleUrlChange}
+              placeholder="Choose Image"
+            />
+          </div>
+          <div>
             Title
             <input
               className="info-box"
@@ -91,16 +101,6 @@ class UnconnectedCreateThread extends Component {
               type="text"
               onChange={this.handleDescriptionChange}
               placeholder="Tell us more about it!"
-              value={this.state.description}
-            />
-          </div>
-          <div>
-            Image
-            <input
-              className="info-box"
-              type="file"
-              onChange={this.handleUrlChange}
-              placeholder="Choose File"
               value={this.state.description}
             />
           </div>
