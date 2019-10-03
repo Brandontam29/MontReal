@@ -80,7 +80,7 @@ class UnconnectedLogin extends Component {
       )
     }
     return (
-      <div className="goBack">
+      <div className="login-success-container">
         <h2>You have successfully logged in!</h2>
         <button className="login-button" onClick={this.goNavigate}>
           Click

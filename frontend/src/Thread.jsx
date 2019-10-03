@@ -7,15 +7,17 @@ class UnconnectedThread extends Component {
     super(props)
     this.state = {
       newComment: "",
-      selectedComment: undefined,
+      selectedComment: null,
       newReply: ""
     }
+    this.handleClick = () => console.log('this is:', this)
   }
+
   handleCommentChange = event => {
     this.setState({ newComment: event.target.value })
   }
 
-  handleSelectedCommentChange = comment => {
+  handleSelectedCommentChange = (event, comment) => {
     this.setState({ selectedComment: comment })
     console.log("THE STATE", this.state)
   }
@@ -121,32 +123,42 @@ class UnconnectedThread extends Component {
     return <div>Login to comment</div>
   }
 
+  
+
+  renderReplyButton = comment => {
+    // this.handleClick = e => {
+    //   e.preventDefault();
+    //   console.log('The link was clicked.');
+    // }
+  
+    if (this.props.userData.name) { 
+      return( <button onclick={console.log("infinite issues smh", comment)}>
+      Reply
+    </button>)}
+   
+    return(<div></div>)
+  }
+
   renderReplySubmition = comment => {
-    console.log("THIS IS A REPLY TO ", comment)
-    if (this.props.userData.name) {
-      return (
-        <form className="thread-comment-entry" onSubmit={this.submitReply}>
-          <div>
-            <input
-              type="hidden"
-              name="selectedComment"
-              value={comment}
-              ref={comment => {
-                this.handleSelectedCommentChange = comment
-              }}
-            />
-            <input
-              className="info-box"
-              type="text"
-              onChange={this.handleReplyChange}
-              placeholder="Add a reply"
-            />
-            <input type="submit" />
-          </div>
-        </form>
-      )
-    }
-    return <div></div>
+    // this.handleSelectedCommentChange(comment)
+    // console.log("THIS IS A REPLY TO ", comment)
+    // if (this.props.userData.name) {
+    //   return (
+    //     <form className="thread-comment-entry" onSubmit={this.submitReply}>
+    //       <div>
+    //         <input
+    //           className="info-box"
+    //           type="text"
+    //           onChange={this.handleReplyChange}
+    //           placeholder="Add a reply"
+    //         />
+    //         <input type="submit" />
+    //       </div>
+    //     </form>
+    //   )
+    // }
+    console.log("yoho you clicked me")
+    return <div>i will appear</div>
   }
 
   renderComments = thread => {
@@ -177,8 +189,7 @@ class UnconnectedThread extends Component {
                     <div>{reply.reply}</div>
                   </div>
                 )
-              })}
-              {this.renderReplySubmition(comment)}
+              })}{this.renderReplyButton(comment)}
             </div>
           </div>
         )

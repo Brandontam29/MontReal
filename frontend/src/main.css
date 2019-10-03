@@ -207,6 +207,8 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding-bottom: 150px;
+  text-align: center
 }
 
 .login-button {
@@ -224,6 +226,11 @@ body {
 
 .login-button:hover {
   padding: 8px;
+}
+
+.login-success-container {
+  height: 400px;
+  text-align: center
 }
 
 .info-bar {
