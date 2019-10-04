@@ -83,6 +83,7 @@ class UnconnectedLogin extends Component {
       <div className="login-success-container">
         <h2>You have successfully logged in!</h2>
         <button className="login-button" onClick={this.goNavigate}>
+          {console.log("this button works properly")}
           Click
         </button>{" "}
         to go back navigating!
