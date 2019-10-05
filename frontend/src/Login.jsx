@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
+import { BrowserRouter, Route, Link } from "react-router-dom"
 
 class UnconnectedLogin extends Component {
   constructor(props) {
@@ -59,23 +60,24 @@ class UnconnectedLogin extends Component {
           <h3>Login</h3>
           <form className="flex-column" onSubmit={this.handleSubmit}>
             <div className="info-bar">
-              Username:
               <input
                 className="info-box"
                 type="text"
                 onChange={this.handleUsernameChange}
+                placeholder="Username"
               />
             </div>
             <div className="info-bar">
-              Password:
               <input
                 className="info-box"
                 type="password"
                 onChange={this.handlePasswordChange}
+                placeholder="Password"
               />
             </div>
             <input className="login-button" type="submit" />
           </form>
+          New to MontReal? <Link to="/signup">Sign Up now</Link>
         </div>
       )
     }

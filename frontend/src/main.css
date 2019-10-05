@@ -209,6 +209,7 @@ body {
   justify-content: space-between;
   padding-bottom: 150px;
   text-align: center;
+  height: 250px;
 }
 
 .login-button {
