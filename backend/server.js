@@ -289,13 +289,14 @@ app.post("/new-comment", upload.none(), function(req, res) {
 })
 
 app.post("/new-reply", upload.none(), function(req, res) {
-  console.log("posting thread", req.body)
+  console.log("REPLY REQ.BOD ", req.body)
+  console.log("OBJECT ID FUNCTION ON REQ.BOD", ObjectID(req.body.commentId))
   MongoClient.connect(url, (err, db) => {
     if (err) throw err
     let dbi = db.db("Geo-Threads")
     dbi.collection("Threads").update(
       {
-        threadId: req.body.threadId,
+        threadId: req.body.currentThread,
         "comments.commentId": ObjectID(req.body.commentId)
       },
       {

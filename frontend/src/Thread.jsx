@@ -69,7 +69,7 @@ class UnconnectedThread extends Component {
       .then(responseBody => {
         console.log(responseBody)
       })
-    console.log("Reply submitted successfully")
+    console.log("reply submitted successfully")
   }
 
   findAuthorName = async userId => {
