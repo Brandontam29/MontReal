@@ -53,11 +53,7 @@ class UnconnectedThread extends Component {
     console.log("Replying to ", this.state.selectedComment)
     let data = new FormData()
     data.append("currentThread", this.props.match.params.threadId)
-
-    data.append("commentorName", this.state.selectedComment.commentorName)
-    data.append("commentorId", this.state.selectedComment.commentorId)
-    data.append("currentComment", this.state.selectedComment.currentComment)
-
+    data.append("commentId", this.state.selectedComment)
     data.append("replierName", this.props.userData.name)
     data.append("replierId", this.props.userData.userId)
     data.append("newReply", this.state.newReply)
@@ -145,24 +141,28 @@ class UnconnectedThread extends Component {
   }
 
   renderReplyButton = comment => {
-    console.log("RENDER REPLY PROPS", this.props.userData.name)
+    console.log("RENDER REPLY", comment)
     if (this.props.userData.name) {
-      if(!this.state.replying) {
-       return (
-        <button
-          onClick={() => {
-            this.setState(
-              {replying: true, 
-              selectedComment: comment})
-          }}
-        >
-          Reply
-        </button>
-      )
+      if (!this.state.replying) {
+        return (
+          <button
+            onClick={() => {
+              this.setState({
+                replying: true,
+                selectedComment: comment.commentId
+              })
+            }}
+          >
+            Reply
+          </button>
+        )
+      }
+      if (this.state.selectedComment === comment.commentId) {
+        return this.renderReplySubmition(comment)
+      }
+      return <div></div>
     }
-    return (this.renderReplySubmition(comment))
-   }
-   return(<div></div>)
+    return <div></div>
   }
 
   renderComments = thread => {

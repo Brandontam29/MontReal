@@ -277,6 +277,7 @@ app.post("/new-comment", upload.none(), function(req, res) {
             commentorName: req.body.commentorName,
             commentorId: req.body.commentorId,
             comment: req.body.newComment,
+            commentId: ObjectID(),
             replies: []
           }
         }
@@ -295,18 +296,15 @@ app.post("/new-reply", upload.none(), function(req, res) {
     dbi.collection("Threads").update(
       {
         threadId: req.body.threadId,
-        comments: {
-          commentorName: req.body.commentorName,
-          commentorId: req.body.commentorId,
-          comment: req.body.newComment
-        }
+        "comments.commentId": ObjectID(req.body.commentId)
       },
       {
         $push: {
           "comments.$.replies": {
-            replierName: req.body.commentorName,
-            replierId: req.body.commentorId,
-            reply: req.body.newComment
+            replierName: req.body.replierName,
+            replierId: req.body.replierId,
+            reply: req.body.newReply,
+            replyId: ObjectID()
           }
         }
       }
