@@ -116,7 +116,7 @@ class UnconnectedThread extends Component {
         </form>
       )
     }
-    return <div>Login to comment</div>
+    return <Link><button className="">Login to comment</button></Link>
   }
 
   handleClick = () => {

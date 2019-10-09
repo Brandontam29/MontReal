@@ -249,10 +249,45 @@ body {
   cursor: pointer;
 }
 
+.info-box-large {
+  width: 400px;
+  height: 600px;
+  background-color: rgb(250, 250, 250);
+  border-color: rgb(77, 77, 77);
+  padding: 10px 15px;
+  margin: 8px 3px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
 .profile-container {
-  margin-left: 30px;
-  margin-top: 30px;
-  padding: 30px;
+  background-color: rgb(250, 250, 250);
+  margin: auto;
+  height: 100%;
+  padding: 40px;
+  padding-top: 20px;
+  padding-bottom: 60px;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  width: 1050px;
+  margin: auto;
+}
+
+.profile-text {
+  margin-bottom: 20px
+}
+
+.profile-container input {
+  width: 200px;
+  background-color: rgb(250, 250, 250);
+  border-color: rgb(77, 77, 77);
+  padding: 10px 15px;
+  margin: 8px 3px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+
 }
 
 .margin-bottom {
@@ -268,9 +303,8 @@ body {
   background-color: rgb(250, 250, 250);
   margin: auto;
   height: 100%;
+  padding: 40px;
   padding-top: 20px;
-  padding-left: 20px;
-  padding-right: 20px;
   padding-bottom: 60px;
   border-bottom-left-radius: 6px;
   border-bottom-right-radius: 6px;
@@ -391,4 +425,4 @@ body {
   margin: auto;
   padding-left: 100px;
 }
-/* #2b7a78 = rgb(43,122,120) */
+

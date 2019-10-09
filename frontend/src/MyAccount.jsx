@@ -101,7 +101,7 @@ class UnconnectedMyAccount extends Component {
           <div>
             Password
             <input
-              className="info-box"
+              // className="info-box"
               type="text"
               onChange={this.handlePasswordChange}
               value={this.state.password}
@@ -110,7 +110,7 @@ class UnconnectedMyAccount extends Component {
           <div>
             Name
             <input
-              className="info-box"
+              // className="info-box"
               type="text"
               onChange={this.handleNameChange}
               value={this.state.name}
@@ -119,7 +119,7 @@ class UnconnectedMyAccount extends Component {
           <div>
             Bio
             <input
-              className="info-box"
+              // className="info-box"
               type="text"
               onChange={this.handleBioChange}
               value={this.state.bio}
@@ -128,7 +128,7 @@ class UnconnectedMyAccount extends Component {
           <div>
             Description
             <input
-              className="info-box"
+              className="info-box-large"
               type="text"
               onChange={this.handleDescriptionChange}
               value={this.state.description}
@@ -142,9 +142,9 @@ class UnconnectedMyAccount extends Component {
     return (
       <div className="profile-container">
         <img className="profile-pic" src={url} />
-        <h4>{this.props.userData.name}</h4>
+        <div className="profile-text"><h4>{this.props.userData.name}</h4>
         <div className="info-account">{this.props.userData.bio}</div>
-        <div className="info-account">{this.props.userData.description}</div>
+        <div className="info-account">{this.props.userData.description}</div></div>
         <button className="login-button" onClick={this.renderModifyProfile}>
           Modify
         </button>
