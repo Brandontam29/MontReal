@@ -17,3 +17,4 @@ Technologies include:
   - Backend: Node.js, Express, MongoDB
   - Other: Git, Github, NPM, Yarn
 
+You can watch the demo via this link: https://youtu.be/bkN1knTOLVg
