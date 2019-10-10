@@ -75,20 +75,28 @@ class UnconnectedLogin extends Component {
                 placeholder="Password"
               />
             </div>
-            <input className="login-button" type="submit" />
+            <div className="button-fixed-height">
+              <input className="action-button" type="submit" />
+            </div>
           </form>
-          New to MontReal? <Link to="/signup">Sign Up now</Link>
+          <div>
+            New to MontReal?{" "}
+            <Link className="resend-link" to="/signup">
+              Sign Up now
+            </Link>
+          </div>
         </div>
       )
     }
     return (
       <div className="login-success-container">
         <h2>You have successfully logged in!</h2>
-        <button className="login-button" onClick={this.goNavigate}>
-          {console.log("this button works properly")}
-          Click
-        </button>{" "}
-        to go back navigating!
+        <div className="button-fixed-height">
+          <button className="action-button" onClick={this.goNavigate}>
+            Click
+          </button>{" "}
+          to go back navigating!
+        </div>
       </div>
     )
   }

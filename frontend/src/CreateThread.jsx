@@ -7,8 +7,7 @@ class UnconnectedCreateThread extends Component {
     super(props)
     this.state = {
       authorId: this.props.userData.userId,
-      // threadId: will be given by the back end
-      url: "", //need to find a way to upload an image
+      url: "",
       location: "",
       title: "",
       description: "",
@@ -17,7 +16,6 @@ class UnconnectedCreateThread extends Component {
   }
 
   handleUrlChange = event => {
-    console.log(event.target.files)
     this.setState({ url: "/" + event.target.files[0].name })
   }
 
@@ -35,14 +33,12 @@ class UnconnectedCreateThread extends Component {
 
   submitThread = event => {
     event.preventDefault()
-    console.log("submitting a new thread", this.state)
     let data = new FormData()
     data.append("userId", this.props.userData.userId)
     data.append("url", this.state.url)
     data.append("location", this.state.location)
     data.append("title", this.state.title)
     data.append("description", this.state.description)
-    console.log("right before fetch", data)
     fetch("http://localhost:4000/create-thread", {
       method: "POST",
       body: data,
@@ -52,7 +48,6 @@ class UnconnectedCreateThread extends Component {
         return x.text()
       })
       .then(responseBody => {
-        console.log(responseBody)
         return (
           <script LANGUAGE="JavaScript">
             {window.alert("Succesfully Updated")}
@@ -63,48 +58,49 @@ class UnconnectedCreateThread extends Component {
   }
 
   render = () => {
-    console.log("rendering thread creation boxes")
     if (this.props.loggedIn) {
       return (
         <form className="profile-container" onSubmit={this.submitThread}>
-          <div>
-            Image
-            <input
-              className="info-box"
-              type="file"
-              onChange={this.handleUrlChange}
-              placeholder="Choose Image"
-            />
+          <div className="create-thread-container">
+            <div>
+              <h4>Image</h4>
+              <input
+                type="file"
+                onChange={this.handleUrlChange}
+                placeholder="Choose Image"
+              />
+            </div>
+            <div>
+              <h4>Location</h4>
+              <input
+                type="text"
+                onChange={this.handleLocationChange}
+                value={this.state.location}
+              />
+            </div>
+            <div>
+              <h4>Title</h4>
+              <input
+                type="text"
+                onChange={this.handleTitleChange}
+                value={this.state.title}
+                className="create-thread-title"
+              />
+            </div>
+
+            <div>
+              <h4>Description</h4>
+              <textarea
+                type="text"
+                onChange={this.handleDescriptionChange}
+                value={this.state.description}
+                className="create-thread-description"
+              />
+            </div>
+            <div className="button-fixed-height">
+              <input className="action-button" type="submit" />
+            </div>
           </div>
-          <div>
-            Title
-            <input
-              className="info-box"
-              type="text"
-              onChange={this.handleTitleChange}
-              value={this.state.title}
-            />
-          </div>
-          <div>
-            Location
-            <input
-              className="info-box"
-              type="text"
-              onChange={this.handleLocationChange}
-              value={this.state.location}
-            />
-          </div>
-          <div>
-            Description
-            <input
-              className="info-box"
-              type="text"
-              onChange={this.handleDescriptionChange}
-              placeholder="Tell us more about it!"
-              value={this.state.description}
-            />
-          </div>
-          <input type="submit" />
         </form>
       )
     }

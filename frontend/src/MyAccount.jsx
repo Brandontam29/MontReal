@@ -90,51 +90,50 @@ class UnconnectedMyAccount extends Component {
     if (this.props.modifyProfile) {
       return (
         <form className="profile-container" onSubmit={this.handleSubmit}>
-          <div>
-            Profile Picture
-            <input
-              type="file"
-              onChange={this.handlePicChange}
-              placeholder="Choose Image"
-            />
+          <div className="create-thread-container">
+            <div>
+              <h4>Profile Picture</h4>
+              <input
+                type="file"
+                onChange={this.handlePicChange}
+                placeholder="Choose Image"
+              />
+            </div>
+            <div>
+              <h4>Password</h4>
+              <input
+                type="text"
+                onChange={this.handlePasswordChange}
+                value={this.state.password}
+              />
+            </div>
+            <div>
+              <h4>Name</h4>
+              <input
+                type="text"
+                onChange={this.handleNameChange}
+                value={this.state.name}
+              />
+            </div>
+            <div>
+              <h4>Bio</h4>
+              <input
+                type="text"
+                onChange={this.handleBioChange}
+                value={this.state.bio}
+              />
+            </div>
+            <div>
+              <h4>Description</h4>
+              <textarea
+                type="text"
+                onChange={this.handleDescriptionChange}
+                value={this.state.description}
+                className="create-thread-description"
+              />
+            </div>
+            <input type="submit" />
           </div>
-          <div>
-            Password
-            <input
-              // className="info-box"
-              type="text"
-              onChange={this.handlePasswordChange}
-              value={this.state.password}
-            />
-          </div>
-          <div>
-            Name
-            <input
-              // className="info-box"
-              type="text"
-              onChange={this.handleNameChange}
-              value={this.state.name}
-            />
-          </div>
-          <div>
-            Bio
-            <input
-              // className="info-box"
-              type="text"
-              onChange={this.handleBioChange}
-              value={this.state.bio}
-            />
-          </div>
-          <div>
-            Description
-            <input
-              className="info-box-large"
-              type="text"
-              onChange={this.handleDescriptionChange}
-              value={this.state.description}
-            />
-          </div>
-          <input type="submit" />
         </form>
       )
     }
@@ -142,12 +141,16 @@ class UnconnectedMyAccount extends Component {
     return (
       <div className="profile-container">
         <img className="profile-pic" src={url} />
-        <div className="profile-text"><h4>{this.props.userData.name}</h4>
-        <div className="info-account">{this.props.userData.bio}</div>
-        <div className="info-account">{this.props.userData.description}</div></div>
-        <button className="login-button" onClick={this.renderModifyProfile}>
-          Modify
-        </button>
+        <div className="profile-text">
+          <h4>{this.props.userData.name}</h4>
+          <div className="info-account">{this.props.userData.bio}</div>
+          <div className="info-account">{this.props.userData.description}</div>
+        </div>
+        <div className="button-fixed-height">
+          <button className="action-button" onClick={this.renderModifyProfile}>
+            Modify
+          </button>
+        </div>
       </div>
     )
   }

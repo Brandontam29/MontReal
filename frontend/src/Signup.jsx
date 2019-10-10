@@ -38,24 +38,26 @@ class UnconnectedSignup extends Component {
     return (
       <div className="login-container">
         <h3>Sign Up</h3>
-        <form onSubmit={this.handleSubmit}>
+        <form className="flex-column" onSubmit={this.handleSubmit}>
           <div className="info-bar">
-            Username:
             <input
               className="info-box"
               type="text"
               onChange={this.handleUsernameChange}
+              placeholder="Username"
             />
           </div>
           <div className="info-bar">
-            Password:
             <input
               className="info-box"
               type="password"
               onChange={this.handlePasswordChange}
-            />{" "}
+              placeholder="Password"
+            />
           </div>
-          <input className="login-button" type="submit" />
+          <div className="button-fixed-height">
+            <input className="action-button" type="submit" />
+          </div>
         </form>
       </div>
     )

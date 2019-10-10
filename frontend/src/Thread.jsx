@@ -17,11 +17,6 @@ class UnconnectedThread extends Component {
     this.setState({ newComment: event.target.value })
   }
 
-  // handleSelectedCommentChange = comment => {
-  //   this.setState({ selectedComment: comment })
-  //   console.log("THE STATE", this.state)
-  // }
-
   handleReplyChange = event => {
     this.setState({ newReply: event.target.value })
   }
@@ -50,7 +45,6 @@ class UnconnectedThread extends Component {
 
   submitReply = event => {
     event.preventDefault()
-    console.log("Replying to ", this.state.selectedComment)
     let data = new FormData()
     data.append("currentThread", this.props.match.params.threadId)
     data.append("commentId", this.state.selectedComment)
@@ -66,10 +60,7 @@ class UnconnectedThread extends Component {
       .then(x => {
         return x.text()
       })
-      .then(responseBody => {
-        console.log(responseBody)
-      })
-    console.log("reply submitted successfully")
+      .then(responseBody => {})
   }
 
   findAuthorName = async userId => {
@@ -116,15 +107,14 @@ class UnconnectedThread extends Component {
         </form>
       )
     }
-    return <Link><button className="">Login to comment</button></Link>
-  }
-
-  handleClick = () => {
-    console.log("HANDLE CLICK")
+    return (
+      <Link>
+        <button className="">Login to comment</button>
+      </Link>
+    )
   }
 
   renderReplySubmition = comment => {
-    console.log("THIS IS A REPLY TO ", comment)
     return (
       <form className="thread-comment-entry" onSubmit={this.submitReply}>
         <div>
@@ -141,7 +131,6 @@ class UnconnectedThread extends Component {
   }
 
   renderReplyButton = comment => {
-    console.log("RENDER REPLY", comment)
     if (this.props.userData.name) {
       if (!this.state.replying) {
         return (

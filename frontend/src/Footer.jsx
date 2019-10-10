@@ -7,7 +7,7 @@ class UnconnectedFooter extends Component {
       <div className="footer-container">
         <hr className="footer-line" />
         <div className="footer-box">
-          <div>Web Designer: Brandon Tam</div>
+          <div>Powered by React</div>
           <div>Contact: Brandon.tam29@gmail.com</div>
           <div>
             My GitHub Link:{" "}
