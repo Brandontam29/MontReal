@@ -6,11 +6,11 @@ Although it may not be a megapole like New York or other big cities, we still fi
 MontReal is a web discussion platform about the city of Montreal. It allows users to view and talk about different topical threads that can  be filtered from a search box. Furthermore, users can also create and manage their profile.
 
 Features include:
-  - Signup/Login system
+  - Signup / Login system
   - Profile viewing and modifying own profile
   - Thread browsing
   - Thread creation
-  - Comment/Reply system
+  - Comment / Reply system
   
 ### View Project ###
 You can watch the demo via this link: https://youtu.be/bkN1knTOLVg
