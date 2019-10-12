@@ -1,4 +1,4 @@
-# MontReal
+# MontReal #
 The goal of this website is to allow Montrealers to talk about the city which they love. 
 Although it may not be a megapole like New York or other big cities, we still find pleasure in the unique things that cannot be found elsewhere.
 
