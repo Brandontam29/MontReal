@@ -32,7 +32,7 @@ Information tracked by the store
   }
 ```
 
-#### Future Proofness####
+#### Future Proofness ####
 Every information about users and threads is stored into the Mongo Database. Uploading or modifying those information directly pushes changes to the database. When displaying threads, a nested asynchronous fetch request matches the right author to the right thread through AuthorID, so that if the author modifies his name, it will still display his new name.
 
 #### All technologies include ####
