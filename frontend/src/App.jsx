@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
-import { BrowserRouter, Route, Link } from "react-router-dom"
+import { BrowserRouter, Route, Switch, Link } from "react-router-dom"
 import Signup from "./Signup.jsx"
 import Login from "./Login.jsx"
 import MyAccount from "./MyAccount.jsx"
@@ -11,6 +11,7 @@ import ThreadBoard from "./ThreadBoard.jsx"
 import Thread from "./Thread.jsx"
 import CreateThread from "./CreateThread.jsx"
 import Footer from "./Footer.jsx"
+import NotFound from "./NotFound.jsx"
 import "./main.css"
 
 class UnconnectedApp extends Component {
@@ -69,22 +70,25 @@ class UnconnectedApp extends Component {
               </Link>
             )}
           </div>
-        </div>
-        <Route exact={true} path="/" render={this.renderRoot} />
-        <Route exact={true} path="/login" render={this.renderLogin} />
-        <Route exact={true} path="/signup" render={this.renderSignup} />
-        <Route exact={true} path="/thread/:threadId" component={Thread} />
-        <Route
-          exact={true}
-          path="/createthread"
-          render={this.renderCreateThread}
-        />
-        <Route exact={true} path="/myaccount" render={this.renderMyAccount} />
-        <Route
-          exact={true}
-          path="/otheraccount/:userId"
-          component={OtherAccount}
-        />
+        </div>{" "}
+        <Switch>
+          <Route exact={true} path="/" render={this.renderRoot} />
+          <Route exact={true} path="/login" render={this.renderLogin} />
+          <Route exact={true} path="/signup" render={this.renderSignup} />
+          <Route exact={true} path="/thread/:threadId" component={Thread} />
+          <Route
+            exact={true}
+            path="/createthread"
+            render={this.renderCreateThread}
+          />
+          <Route exact={true} path="/myaccount" render={this.renderMyAccount} />
+          <Route
+            exact={true}
+            path="/otheraccount/:userId"
+            component={OtherAccount}
+          />{" "}
+          <Route exact={true} path="*" component={NotFound} />{" "}
+        </Switch>
         <Footer />
       </BrowserRouter>
     )
